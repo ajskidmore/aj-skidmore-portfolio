@@ -221,7 +221,7 @@ const Footer = () => {
         <FooterTop>
           <FooterColumn>
             <FooterLogo to="/">
-              <FooterLogoHighlight>A.J.</FooterLogoHighlight> Skidmore
+              <FooterLogoHighlight>A.J.</FooterLogoHighlight>Skidmore
             </FooterLogo>
             <FooterAbout>
               Software & UX Engineer focused on creating intuitive, 
