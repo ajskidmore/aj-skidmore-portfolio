@@ -432,7 +432,7 @@ const Hero = () => {
               transition={{ duration: 0.5 }}
               isLight={isLight}
             >
-              👋 Hi! I'm A.J. 
+              👋 Hi! I'm A.J. Skidmore
             </HeroGreeting>
             
             <HeroTitle
