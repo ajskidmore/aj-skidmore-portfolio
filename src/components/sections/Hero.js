@@ -362,7 +362,7 @@ const Hero = () => {
     "  const passion = 'Building amazing user experiences';",
     "  ",
     "  return {",
-    "    name: 'AJ Skidmore',",
+    "    name: 'A.J. Skidmore',",
     "    role: 'Software & UX Engineer',",
     "    contact: 'ajskidless@gmail.com'",
     "  };",
@@ -432,7 +432,7 @@ const Hero = () => {
               transition={{ duration: 0.5 }}
               isLight={isLight}
             >
-              👋 Hello, I'm AJ Skidmore
+              👋 Hi! I'm A.J. 
             </HeroGreeting>
             
             <HeroTitle
