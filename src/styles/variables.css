@@ -1,0 +1,38 @@
+:root {
+    /* Base Theme Colors */
+    --primary-color: #3b82f6;
+    --accent-color: #0070f3;
+    
+    /* Light Theme */
+    --secondary-color-light: #1e293b;
+    --text-color-light: #333333;
+    --background-color-light: #ffffff;
+    --section-bg-light: #f9fafb;
+    --card-bg-light: #ffffff;
+    
+    /* Dark Theme */
+    --secondary-color-dark: #e0e0e0;
+    --text-color-dark: #e0e0e0;
+    --background-color-dark: #121212;
+    --section-bg-dark: #1a1a1a;
+    --card-bg-dark: #222222;
+    
+    /* Shared styles */
+    --border-radius: 8px;
+    
+    /* Default theme (light) */
+    --secondary-color: var(--secondary-color-light);
+    --text-color: var(--text-color-light);
+    --background-color: var(--background-color-light);
+    --section-bg: var(--section-bg-light);
+    --card-bg: var(--card-bg-light);
+  }
+  
+  /* Dark theme class applied to body */
+  body.dark-theme {
+    --secondary-color: var(--secondary-color-dark);
+    --text-color: var(--text-color-dark);
+    --background-color: var(--background-color-dark);
+    --section-bg: var(--section-bg-dark);
+    --card-bg: var(--card-bg-dark);
+  }
