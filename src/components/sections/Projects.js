@@ -277,15 +277,14 @@ const Projects = () => {
       title: 'HR Analytics Dashboard',
       category: 'Software Engineer',
       summary: 'An interactive dashboard focused on reducing employee turnover through data-driven insights.',
-      description: 'PeopleView is a comprehensive HR analytics platform designed to help organizations identify and address factors contributing to employee turnover. The dashboard provides real-time visualization of key HR metrics and leverages machine learning algorithms to predict turnover risks and recommend retention strategies.',
-      technologies: ['React', 'Node.js', 'Machine Learning', 'AI Integration', 'Azure', 'UX/UI Design'],
-      imageUrl: '/assets/images/peopleview.png',
+      description: 'Eudo is a comprehensive HR analytics platform designed to help organizations identify and address factors contributing to employee turnover. The dashboard provides real-time visualization of key HR metrics derived from a proprietary framework.',
+      technologies: ['React', 'Node.js', 'Azure', 'UX Design'],
+      imageUrl: '/assets/images/Eudo.png',
       features: [
         'Interactive data visualizations',
         'Predictive turnover modeling',
         'Department-specific analytics',
-        'Customizable reporting tools',
-        'AI-powered retention recommendations'
+        'Customizable reporting tools'
       ]
     },
     {
@@ -293,8 +292,8 @@ const Projects = () => {
       title: 'Film Industry Platform',
       category: 'Software Engineer',
       summary: 'A comprehensive tool connecting filmmakers and providing a marketplace for hiring talent and trading equipment.',
-      description: 'eFilmHub is a one-stop platform for the film industry, designed to streamline collaboration and resource management. The platform allows filmmakers to discover and connect with talent, post job opportunities, buy and sell equipment, and manage production workflows.',
-      technologies: ['React', 'Node.js', 'Firebase', 'UX/UI Design', 'Cloud Storage', 'Real-time Database'],
+      description: 'eFilmHub is a one-stop platform for the film industry, designed to streamline collaboration and resource management for filmmakers located in Africa. The platform allows filmmakers to discover and connect with talent, post job opportunities, facilitate equipment commerce through a real-time online forum.',
+      technologies: ['React', 'Node.js', 'GCP', 'UX Design', 'Cloud Storage', 'Real-time Database'],
       imageUrl: '/assets/images/efilmhub.png',
       features: [
         'Talent discovery and hiring',
@@ -310,7 +309,7 @@ const Projects = () => {
       category: 'UX Engineer',
       summary: 'Complete redesign and development of a web development company website with modern UI/UX principles.',
       description: 'This project involved a full-scale redesign of a web development company\'s online presence. The client specializes in creating websites and web applications for businesses across multiple industries. The redesign focused on showcasing their portfolio, streamlining user flows, and implementing modern design principles to reflect their expertise.',
-      technologies: ['Figma', 'HTML/CSS', 'JavaScript', 'WordPress', 'Responsive Design', 'SEO Optimization'],
+      technologies: ['HTML/CSS', 'JavaScript', 'PHP', 'UX Design', 'Figma', 'WordPress', 'Responsive Design', 'SEO Optimization'],
       imageUrl: '/assets/images/stg.png',
       features: [
         'Custom WordPress theme development',
@@ -412,7 +411,7 @@ const Projects = () => {
                           onError={(e) => {
                             // Fixed fallback image paths
                             if (project.id === 'peopleview') {
-                              e.target.src = "/assets/images/peopleview.png"; // Try the correct path first
+                              e.target.src = "/assets/images/Eudo.png"; // Try the correct path first
                             } else if (project.id === 'efilmhub') {
                               e.target.src = "/assets/images/efilmhub.png"; // Try the correct path first
                             } else if (project.id === 'ai-data-analyzer') {

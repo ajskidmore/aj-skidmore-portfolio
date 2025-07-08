@@ -85,6 +85,9 @@ const HeroGreeting = styled(motion.p)`
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
   transition: all var(--transition-duration) var(--transition-timing);
+  @media (max-width: 768px) {
+    margin-top: 8rem; /* Add top margin for mobile devices */
+  }
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -364,7 +367,7 @@ const Hero = () => {
     "  return {",
     "    name: 'A.J. Skidmore',",
     "    role: 'Software & UX Engineer',",
-    "    contact: 'ajskidless@gmail.com'",
+    "    contact: 'hello@ajskidmore.com'",
     "  };",
     "}",
     "",

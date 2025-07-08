@@ -4,7 +4,12 @@ import { FiSun, FiMoon } from 'react-icons/fi';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 const ToggleButton = styled.button`
-  background: ${props => props.isLight ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.2)'};
+  background: ${props => {
+    if (props.isAuto) {
+      return props.isLight ? 'linear-gradient(45deg, var(--primary-color), var(--accent-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))';
+    }
+    return props.isLight ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.2)';
+  }};
   color: white;
   border: none;
   width: 40px;
@@ -23,7 +28,12 @@ const ToggleButton = styled.button`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    background: ${props => props.isLight ? 'var(--accent-color)' : 'rgba(255, 255, 255, 0.3)'};
+    background: ${props => {
+      if (props.isAuto) {
+        return props.isLight ? 'linear-gradient(45deg, var(--accent-color), var(--primary-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2))';
+      }
+      return props.isLight ? 'var(--accent-color)' : 'rgba(255, 255, 255, 0.3)';
+    }};
   }
   
   /* Add a subtle animation effect on click */
@@ -49,16 +59,28 @@ const ToggleButton = styled.button`
 `;
 
 const ThemeToggle = () => {
-  const { isLight, toggleTheme } = useContext(ThemeContext);
+  const { isLight, isAutoMode, toggleTheme } = useContext(ThemeContext);
+  
+  const getTooltipText = () => {
+    if (isAutoMode) {
+      return `Auto mode: ${isLight ? 'Day' : 'Night'} (Click to override)`;
+    }
+    return `Manual mode: ${isLight ? 'Light' : 'Dark'} (Click to toggle)`;
+  };
+  
+  const getIcon = () => {
+    return isLight ? <FiMoon /> : <FiSun />;
+  };
   
   return (
     <ToggleButton 
       onClick={toggleTheme} 
       isLight={isLight}
-      aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
-      title={isLight ? "Switch to dark mode" : "Switch to light mode"}
+      isAuto={isAutoMode}
+      aria-label={getTooltipText()}
+      title={getTooltipText()}
     >
-      {isLight ? <FiMoon /> : <FiSun />}
+      {getIcon()}
     </ToggleButton>
   );
 };

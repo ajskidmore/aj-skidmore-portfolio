@@ -385,22 +385,20 @@ const About = () => {
             </AboutTitle>
             
             <AboutText>
-              I'm a passionate software engineer with expertise in creating 
-              intuitive, user-centered digital experiences. With a unique blend of 
-              <HightlightText> design thinking and technical expertise</HightlightText>, 
-              I bridge the gap between design and development to build seamless applications.
+              I'm a full-stack software engineer with <HightlightText>3+ years of experience</HightlightText> building 
+              scalable web applications and user-centric interfaces. I specialize in React, Node.js, LAMP stack, 
+              and cloud platforms with a proven track record of delivering  
+              <HightlightText> 300+ public-facing projects</HightlightText> across healthcare, government, education, and retail sectors.
             </AboutText>
             
             <AboutText>
-              My approach combines technical skills with an eye for design and a
-              deep understanding of user needs. I believe that exceptional software
-              should not only function flawlessly but also delight users with its 
-              simplicity and elegance.
+              What sets me apart is my unique background in <HightlightText>Experience Architecture </HightlightText> 
+               from Michigan State University, combining UX design, user research, and technical development. This 
+              interdisciplinary foundation allows me to <HightlightText>bridge the gap between design and 
+              development</HightlightText>, ensuring applications are both technically robust and user-friendly. I was trained in Web Development and UX Design early in my career. They remain strong focus areas.
             </AboutText>
+            
 
-            <AboutText>
-              I was trained in Web Development and UX Design early in my career. They remain strong focus areas.
-            </AboutText>
             
             <FocusAreas>
               <FocusArea
@@ -463,17 +461,18 @@ const About = () => {
             >
               <TimelinePeriod>October 2024 - Present</TimelinePeriod>
               <TimelineTitle>Software Engineer, Co-founder</TimelineTitle>
-              <TimelineSubtitle>PeopleView • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
+              <TimelineSubtitle>Eudo • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
               <TimelineText>
-                • Engineered an HR analytics dashboard in React, Node.js, and Azure that measures employee satisfaction 
-                and predicts turnover risk through patented frameworks.
+                • Architected HR analytics dashboard using React, Node.js, and Azure, implementing proprietary framework 
+                to measure employee satisfaction and predict turnover risk
               </TimelineText>
               <TimelineText>
-                • Implemented machine learning algorithms and AI integration to analyze data.
+                • Built interactive data visualization components in React, transforming complex HR metrics into 
+                actionable insights for management decision-making
               </TimelineText>
               <TimelineText>
-                • Developed full-stack solution connecting frontend user experience with backend data processing to deliver 
-                real-time HR analytics.
+                • Designed full-stack architecture connecting real-time frontend interfaces with robust backend 
+                data processing systems
               </TimelineText>
             </TimelineItem>
             
@@ -484,19 +483,19 @@ const About = () => {
               viewport={{ once: true, amount: 0.1 }}
             >
               <TimelinePeriod>July 2024 - Present</TimelinePeriod>
-              <TimelineTitle>Software Engineer, CTO</TimelineTitle>
+              <TimelineTitle>Software Engineer</TimelineTitle>
               <TimelineSubtitle>eFilmHub • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
               <TimelineText>
-                • Engineered a comprehensive film industry social platform in React, Node.js, and Google Cloud Services, 
-                combining features of IMDb and Backstage.
+                • Developed comprehensive film industry social platform combining IMDb and Backstage functionality 
+                using React, Node.js, and Google Cloud Services
               </TimelineText>
               <TimelineText>
-                • Implemented AI-powered user assistance and machine learning algorithms to deliver personalized content 
-                feeds based on user interests.
+                • Engineered responsive frontend components for talent discovery and industry networking, 
+                optimizing user experience across devices
               </TimelineText>
               <TimelineText>
-                • Designed scalable cloud architecture supporting thousands of concurrent users while maintaining 
-                responsive performance.
+                • Implemented scalable cloud architecture with GCP Cloud Storage and Real-time Database 
+                to support user growth
               </TimelineText>
             </TimelineItem>
             
@@ -510,16 +509,15 @@ const About = () => {
               <TimelineTitle>UX Engineer</TimelineTitle>
               <TimelineSubtitle>Shumaker Technology Group • Salt Lake City, UT (Remote) • Full-Time</TimelineSubtitle>
               <TimelineText>
-                • Designed and developed user-centric interfaces for 50+ client websites and web applications, applying core 
-                UX principles of accessibility, usability, and engagement.
+                • Designed and developed user-centric interfaces for 50+ client websites serving thousands of monthly 
+                users across healthcare, government, education, and retail
               </TimelineText>
               <TimelineText>
-                • Created comprehensive wireframes, interactive prototypes, and high-fidelity mockups using Figma, 
-                translating client requirements into intuitive user experiences.
+                • Collaborated with cross-functional teams in agile environment to deliver accessible, engaging web 
+                solutions meeting client requirements and business objectives
               </TimelineText>
               <TimelineText>
-                • Delivered websites serving thousands of monthly users across diverse industries including healthcare, 
-                government, education, and retail.
+                • Applied UX principles and accessibility standards to ensure optimal user experience and compliance
               </TimelineText>
             </TimelineItem>
             
@@ -533,16 +531,15 @@ const About = () => {
               <TimelineTitle>Web Developer</TimelineTitle>
               <TimelineSubtitle>Shumaker Technology Group • Lansing, MI • Part-Time</TimelineSubtitle>
               <TimelineText>
-                • Developed and deployed responsive client websites using HTML, CSS, JavaScript, and modern front-end 
-                frameworks to create engaging user experiences.
+                • Developed and deployed responsive websites using HTML5, CSS3, JavaScript, and modern frameworks, 
+                creating engaging user experiences for diverse client base
               </TimelineText>
               <TimelineText>
-                • Utilized PHP and SQL to troubleshoot, optimize, and enhance complex web applications serving over 5,000 
-                active users.
+                • Optimized complex web applications using PHP and SQL for platforms serving 5,000+ active users
               </TimelineText>
               <TimelineText>
-                • Performed critical updates, security patches, and performance optimizations on over 300 public-facing web 
-                projects.
+                • Maintained and enhanced 300+ public web projects through security patches, updates, 
+                and performance optimizations
               </TimelineText>
             </TimelineItem>
           </TimelineContainer>
@@ -570,10 +567,10 @@ const About = () => {
               viewport={{ once: true, amount: 0.1 }}
             >
               <TimelinePeriod>December 2023</TimelinePeriod>
-              <TimelineTitle>Bachelor of Arts, Experience Architecture</TimelineTitle>
+              <TimelineTitle>Bachelors in Experience Architecture</TimelineTitle>
               <TimelineSubtitle>Michigan State University</TimelineSubtitle>
               <TimelineText>
-                • Interdisciplinary major combining UX design, web development, and technical communication.
+                • Interdisciplinary major combining web development, UX design, and user research
               </TimelineText>
             </TimelineItem>
           </TimelineContainer>

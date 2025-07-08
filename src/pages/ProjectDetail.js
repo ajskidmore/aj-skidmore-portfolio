@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import styled from 'styled-components';
-import { FaArrowLeft, FaGithub, FaLink } from 'react-icons/fa';
+import { FaArrowLeft, FaLink } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { ThemeContext } from '../contexts/ThemeContext';
 
@@ -251,7 +251,6 @@ const ProjectDetail = () => {
         'Customizable reporting tools',
         'AI-powered retention recommendations'
       ],
-      github: 'https://github.com/ajskidmore/peopleview',
       liveUrl: 'https://peopleview.demo.com'
     },
     {
@@ -269,7 +268,6 @@ const ProjectDetail = () => {
         'Production management features',
         'Industry networking forums'
       ],
-      github: 'https://github.com/ajskidmore/efilmhub',
       liveUrl: 'https://efilmhub.demo.com'
     },
     {
@@ -287,7 +285,6 @@ const ProjectDetail = () => {
         'Natural language report generation',
         'Trend identification and prediction'
       ],
-      github: 'https://github.com/ajskidmore/ai-data-analyzer',
       liveUrl: 'https://ai-analyzer.demo.com'
     }
   ];
@@ -447,16 +444,6 @@ const ProjectDetail = () => {
                 </ProjectFeatures>
                 
                 <ProjectLinks>
-                  {project.github && (
-                    <ProjectLink 
-                      href={project.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      primary={true}
-                    >
-                      <FaGithub /> View on GitHub
-                    </ProjectLink>
-                  )}
                   
                   {project.liveUrl && (
                     <ProjectLink 

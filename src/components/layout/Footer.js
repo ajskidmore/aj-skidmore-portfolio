@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { 
-  FaHeart, 
-  FaGithub, 
   FaLinkedinIn, 
   FaEnvelope, 
-  FaChevronUp, 
-  FaMapMarkerAlt 
+  FaPhone,
+  FaSignInAlt
 } from 'react-icons/fa';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 import ThemeBackground from '../theme/ThemeBackground';
+import LoginModal from '../auth/LoginModal';
 
 // Using ThemeBackground as the base
 const StyledFooterContainer = styled(ThemeBackground)`
@@ -166,54 +166,53 @@ const Copyright = styled.p`
   }
 `;
 
-const MadeWith = styled.div`
+const LoginLink = styled.button`
   display: flex;
   align-items: center;
   font-size: 0.95rem;
   color: var(--text-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
   
   svg {
-    color: #e74c3c;
-    margin: 0 0.3rem;
-    animation: heartBeat 1.5s infinite;
+    margin-right: 0.5rem;
+    color: var(--primary-color);
   }
   
-  @keyframes heartBeat {
-    0% { transform: scale(1); }
-    14% { transform: scale(1.3); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.3); }
-    70% { transform: scale(1); }
+  &:hover {
+    background-color: ${props => props.isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
+    color: var(--primary-color);
   }
 `;
 
-const BackToTop = styled.a`
-  position: absolute;
-  right: 30px;
-  bottom: 50px;
-  width: 45px;
-  height: 45px;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 50%;
+const LogoutButton = styled.button`
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
   
   &:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background-color: ${props => props.isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
+    color: var(--primary-color);
   }
 `;
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { isLight } = useContext(ThemeContext);
+  const { isAuthenticated, logout } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   
   return (
     <StyledFooterContainer>
@@ -229,15 +228,6 @@ const Footer = () => {
             </FooterAbout>
             <SocialLinks>
               <SocialLink 
-                href="https://github.com/ajskidmore" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                isLight={isLight}
-              >
-                <FaGithub />
-              </SocialLink>
-              <SocialLink 
                 href="https://linkedin.com/in/aj-skidmore" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -247,11 +237,18 @@ const Footer = () => {
                 <FaLinkedinIn />
               </SocialLink>
               <SocialLink 
-                href="mailto:ajskidless@gmail.com"
+                href="mailto:hello@ajskidmore.com"
                 aria-label="Email Contact"
                 isLight={isLight}
               >
                 <FaEnvelope />
+              </SocialLink>
+              <SocialLink 
+                href="tel:+15176685268"
+                aria-label="Phone Contact"
+                isLight={isLight}
+              >
+                <FaPhone />
               </SocialLink>
             </SocialLinks>
           </FooterColumn>
@@ -283,13 +280,13 @@ const Footer = () => {
               <ContactIcon>
                 <FaEnvelope />
               </ContactIcon>
-              <ContactText>ajskidless@gmail.com</ContactText>
+              <ContactText>hello@ajskidmore.com</ContactText>
             </ContactItem>
             <ContactItem>
               <ContactIcon>
-                <FaMapMarkerAlt />
+                <FaPhone />
               </ContactIcon>
-              <ContactText>Salt Lake City, Utah</ContactText>
+              <ContactText>(517) 668-5268</ContactText>
             </ContactItem>
           </FooterColumn>
         </FooterTop>
@@ -301,14 +298,23 @@ const Footer = () => {
             <Copyright>
               &copy; {currentYear} <a href="/">A.J. Skidmore</a>. All rights reserved.
             </Copyright>
-            <MadeWith>
-              Made with <FaHeart /> and React
-            </MadeWith>
+            {isAuthenticated ? (
+              <LogoutButton onClick={logout} isLight={isLight}>
+                Logout
+              </LogoutButton>
+            ) : (
+              <LoginLink onClick={() => setShowLoginModal(true)} isLight={isLight}>
+                <FaSignInAlt /> Admin Login
+              </LoginLink>
+            )}
           </FooterBottomContent>
         </div>
       </FooterBottom>
       
-      
+      <LoginModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
     </StyledFooterContainer>
   );
 };

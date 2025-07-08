@@ -5,7 +5,7 @@ import {
   SiReact, SiJavascript, SiHtml5, SiCss3, SiFirebase, 
   SiNodedotjs, SiGit, SiFigma, SiTypescript, SiWordpress,
   SiNextdotjs, SiPhp, SiSqlite, SiAmazonwebservices, SiFramer,
-  SiPython, SiTensorflow,
+  SiGraphql, SiTensorflow,
   SiCloud66,
   SiGooglecloud, 
   SiKeras,
@@ -362,70 +362,67 @@ const Skills = () => {
     });
   };
   
-  // UX & UI Design skills
-  const uxUiSkills = [
+  // Design & UX skills
+  const designUxSkills = [
     { name: "Figma", icon: <SiFigma />, level: 90 },
-    { name: "Framer", icon: <SiFramer />, level: 85 },
-    { name: "User Research", icon: <FaUser />, level: 85 },
-    { name: "Wireframing", icon: <FaSitemap />, level: 92 },
-    { name: "Prototyping", icon: <FaPencilRuler />, level: 88 },
-    { name: "Accessibility", icon: <FaAccessibleIcon />, level: 80 },
-    { name: "Responsive Design", icon: <FaMobileAlt />, level: 90 }
+    { name: "Prototyping", icon: <FaPencilRuler />, level: 95 },
+    { name: "User Research", icon: <FaUser />, level: 90 },
+    { name: "Accessibility Standards", icon: <FaAccessibleIcon />, level: 90 },
+    { name: "Responsive Design", icon: <FaMobileAlt />, level: 95 }
   ];
   
   // Frontend skills
   const frontendSkills = [
-    { name: "React", icon: <SiReact />, level: 95 },
+    { name: "React", icon: <SiReact />, level: 90 },
+    { name: "Next.js", icon: <SiNextdotjs />, level: 75 },
     { name: "JavaScript", icon: <SiJavascript />, level: 90 },
     { name: "HTML5", icon: <SiHtml5 />, level: 95 },
     { name: "CSS3", icon: <SiCss3 />, level: 90 },
-    { name: "TypeScript", icon: <SiTypescript />, level: 85 },
-    { name: "Next.js", icon: <SiNextdotjs />, level: 90 },
-    { name: "Wordpress", icon: <SiWordpress />, level: 80 }
+    { name: "WordPress", icon: <SiWordpress />, level: 85 }
   ];
   
   // Backend skills
   const backendSkills = [
-    { name: "Node.js", icon: <SiNodedotjs />, level: 75 },
-    { name: "PHP", icon: <SiPhp />, level: 70 },
-    { name: "SQL", icon: <SiSqlite />, level: 70 },
-    { name: "Firebase", icon: <SiFirebase />, level: 75 },
-    { name: "Python", icon: <SiPython />, level: 72 }
+    { name: "Node.js", icon: <SiNodedotjs />, level: 80 },
+    { name: "PHP", icon: <SiPhp />, level: 85 },
+    { name: "SQL", icon: <SiSqlite />, level: 80 },
+    { name: "GraphQL", icon: <SiGraphql />, level: 65 },
+    { name: "RESTful APIs", icon: <FaArrowUp />, level: 85 }
   ];
   
-  // Other Technical skills
-  const technicalSkills = [
+  // Cloud & DevOps skills
+  const cloudDevOpsSkills = [
+    { name: "Cloud Platforms (GCP/Azure/AWS)", icon: <SiGooglecloud />, level: 85 },
     { name: "Git", icon: <SiGit />, level: 90 },
-    { name: "Cloud (AWS/Azure/GCP)", icon: <SiGooglecloud />, level: 65 },
-    { name: "Machine Learning", icon: <FaBrain />, level: 70 },
-    { name: "AI Integration", icon: <SiTensorflow />, level: 65 }
+    { name: "Performance Optimization", icon: <FaArrowUp />, level: 85 },
+    { name: "Agile Development", icon: <FaSitemap />, level: 90 }
   ];
   
   // Core competencies
   const coreCompetencies = [
     { 
-      name: "UX & UI Design", 
-      description: "Creating intuitive and engaging user experiences", 
+      name: "Design & UX", 
+      description: "Figma, Prototyping, User Research, Accessibility Standards", 
       percentage: "95%",
-      id: "ux-ui-design"
+      id: "design-ux"
     },
     { 
       name: "Frontend Development", 
-      description: "Building responsive, accessible and performant user interfaces", 
+      description: "React, Next.js, JavaScript, HTML5, CSS3, Responsive Design", 
       percentage: "90%",
       id: "frontend-development"
     },
     { 
       name: "Backend Development", 
-      description: "Connecting frontends with robust data solutions", 
-      percentage: "75%",
+      description: "Node.js, PHP, SQL, GraphQL, RESTful APIs", 
+      percentage: "80%",
       id: "backend-development"
     },
     { 
-      name: "Other Technical Skills", 
-      description: "Additional expertise to complete the full development lifecycle", 
+      name: "Cloud & DevOps", 
+      description: "Cloud Platforms (GCP/Azure/AWS), Git, Performance Optimization, Agile Development", 
       percentage: "85%",
-      id: "technical-skills"
+      id: "cloud-devops"
     }
   ];
   
@@ -474,8 +471,8 @@ const Skills = () => {
           </motion.div>
         </SkillsContainer>
         
-        <SkillsContainer id="ux-ui-design">
-          <SkillCategoryTitle>UX & UI Design</SkillCategoryTitle>
+        <SkillsContainer id="design-ux">
+          <SkillCategoryTitle>Design & UX</SkillCategoryTitle>
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -483,7 +480,7 @@ const Skills = () => {
             viewport={{ once: true, amount: 0.1 }}
           >
             <SkillsGrid>
-              {uxUiSkills.map((skill, index) => (
+              {designUxSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
                     <SkillIcon>{skill.icon}</SkillIcon>
@@ -540,8 +537,8 @@ const Skills = () => {
           </motion.div>
         </SkillsContainer>
         
-        <SkillsContainer id="technical-skills">
-          <SkillCategoryTitle>Other Technical Skills</SkillCategoryTitle>
+        <SkillsContainer id="cloud-devops">
+          <SkillCategoryTitle>Cloud & DevOps</SkillCategoryTitle>
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -549,7 +546,7 @@ const Skills = () => {
             viewport={{ once: true, amount: 0.1 }}
           >
             <SkillsGrid>
-              {technicalSkills.map((skill, index) => (
+              {cloudDevOpsSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
                     <SkillIcon>{skill.icon}</SkillIcon>

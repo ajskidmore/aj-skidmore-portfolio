@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Nav = styled.nav`
   @media (max-width: 768px) {
@@ -141,8 +142,8 @@ const itemVariants = {
 };
 
 const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
-  const location = useLocation();
   const { isLight } = useContext(ThemeContext);
+  const { isAuthenticated } = useAuth();
   
   // Function to handle navigation on mobile
   const handleNavClick = () => {
@@ -212,6 +213,21 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 </NavItemLink>
               </NavItem>
             </motion.div>
+            
+            {isAuthenticated && (
+              <motion.div variants={itemVariants}>
+                <NavItem>
+                  <NavItemLink 
+                    to="/admin" 
+                    onClick={handleNavClick}
+                    isLight={isLight}
+                    className={({ isActive }) => isActive ? 'active' : ''}
+                  >
+                    Admin
+                  </NavItemLink>
+                </NavItem>
+              </motion.div>
+            )}
             
             <motion.div variants={itemVariants}>
               <NavItem>

@@ -402,7 +402,7 @@ const ProjectDetailModal = ({ project, isOpen, onClose, isLight }) => {
                     onError={(e) => {
                       // Try the corrected path with leading slash
                       if (project.id === 'peopleview') {
-                        e.target.src = "/assets/images/peopleview.png";
+                        e.target.src = "/assets/images/Eudo.png";
                       } else if (project.id === 'efilmhub') {
                         e.target.src = "/assets/images/efilmhub.png";
                       } else if (project.id === 'ai-data-analyzer') {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/AuthContext';
 import styled from 'styled-components';
 
 // Layout components
@@ -15,6 +16,7 @@ import SkillsPage from './pages/SkillsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import ProjectDetail from './pages/ProjectDetail';
+import AdminPage from './pages/AdminPage';
 import NotFound from './pages/NotFound';
 
 // Styles
@@ -68,26 +70,29 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
-        <GlobalTheme />
-        <AppContainer>
-          <Header />
-          <MainContent>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/skills" element={<SkillsPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </MainContent>
-          <Footer />
-        </AppContainer>
-        {/* This is a fallback container that will be used if the useEffect doesn't run */}
-        <ModalContainer id="modal-root-fallback" />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <GlobalTheme />
+          <AppContainer>
+            <Header />
+            <MainContent>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/skills" element={<SkillsPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </MainContent>
+            <Footer />
+          </AppContainer>
+          {/* This is a fallback container that will be used if the useEffect doesn't run */}
+          <ModalContainer id="modal-root-fallback" />
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

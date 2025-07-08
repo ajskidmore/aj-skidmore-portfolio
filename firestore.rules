@@ -1,9 +1,17 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Allow contact form submissions and admin access
+    match /contactSubmissions/{document} {
+      allow read: if true; // Allow reading for admin functionality
+      allow create: if true; // Allow anyone to create contact submissions
+      allow update: if true; // Allow updating for marking as read
+      allow delete: if true; // Allow deletion for admin cleanup
+    }
+    
+    // Default rule for other collections
     match /{document=**} {
-      allow read;
-      allow write: if false;
+      allow read, write: if false;
     }
   }
 }

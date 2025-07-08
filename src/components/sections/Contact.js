@@ -1,15 +1,14 @@
 // src/components/sections/Contact.js
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { 
   FaEnvelope, 
-  FaMapMarkerAlt, 
-  FaGithub, 
+  FaPhone,
   FaLinkedinIn
 } from 'react-icons/fa';
 import ThemeBackground from '../theme/ThemeBackground';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import CompactContactForm from '../forms/CompactContactForm';
 
 const StyledContactSection = styled(ThemeBackground)`
   padding: 7rem 0;
@@ -62,7 +61,7 @@ const ContactCard = styled(motion.div)`
 const ContactCardHeader = styled.div`
   background: linear-gradient(to right, var(--primary-color), var(--accent-color));
   color: white;
-  padding: 2.5rem;
+  padding: 2rem;
   position: relative;
   overflow: hidden;
   
@@ -78,124 +77,79 @@ const ContactCardHeader = styled.div`
   }
 `;
 
+const HeaderContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const TitleSection = styled.div``;
+
 const ContactTitle = styled.h3`
-  font-size: 2rem;
+  font-size: 1.75rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
   color: white;
 `;
 
 const ContactSubtitle = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem;
   opacity: 0.9;
   color: white;
+  margin-bottom: 0;
 `;
+
+const HeaderContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const HeaderContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+  font-size: 0.9rem;
+`;
+
+const HeaderContactIcon = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+`;
+
+const HeaderContactText = styled.div`
+  flex: 1;
+`;
+
+const HeaderContactLink = styled.a`
+  color: white;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 
 const ContactCardBody = styled.div`
   padding: 2.5rem;
 `;
 
-const ContactInfoContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
-
-const ContactInfoItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-  }
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const ContactIcon = styled.div`
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background-color: rgba(59, 130, 246, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-  
-  ${ContactInfoItem}:hover & {
-    background-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-  }
-`;
-
-const ContactInfo = styled.div`
-  flex: 1;
-`;
-
-const ContactInfoTitle = styled.h4`
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-`;
-
-const ContactInfoText = styled.p`
-  color: var(--text-color);
-  margin-bottom: 0.25rem;
-  line-height: 1.6;
-`;
-
-const ContactLink = styled.a`
-  color: var(--primary-color);
-  display: inline-flex;
-  align-items: center;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    color: var(--accent-color);
-    text-decoration: underline;
-  }
-`;
-
-const SocialLinksContainer = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-  justify-content: center;
-`;
-
-const SocialLink = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: ${props => props.isLight ? '#f3f4f6' : 'var(--card-bg-dark, #2a2a2a)'};
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'var(--text-color-dark, #e1e1e1)'};
-  font-size: 1.5rem;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-`;
 
 const DecorativeCircle = styled.div`
   position: absolute;
@@ -224,7 +178,6 @@ const fadeIn = {
 };
 
 const Contact = () => {
-  const { isLight } = useContext(ThemeContext);
 
   return (
     <StyledContactSection id="contact">
@@ -253,59 +206,52 @@ const Contact = () => {
           variants={fadeIn}
         >
           <ContactCardHeader>
-            <ContactTitle>A.J. Skidmore</ContactTitle>
-            <ContactSubtitle>Software & UX Engineer</ContactSubtitle>
+            <HeaderContent>
+              <TitleSection>
+                <ContactTitle>A.J. Skidmore</ContactTitle>
+                <ContactSubtitle>Software & UX Engineer</ContactSubtitle>
+              </TitleSection>
+              
+              <HeaderContactInfo>
+                <HeaderContactItem>
+                  <HeaderContactIcon>
+                    <FaEnvelope />
+                  </HeaderContactIcon>
+                  <HeaderContactText>
+                    <HeaderContactLink href="mailto:hello@ajskidmore.com">
+                      hello@ajskidmore.com
+                    </HeaderContactLink>
+                  </HeaderContactText>
+                </HeaderContactItem>
+                
+                <HeaderContactItem>
+                  <HeaderContactIcon>
+                    <FaPhone />
+                  </HeaderContactIcon>
+                  <HeaderContactText>
+                    <HeaderContactLink href="tel:+15176685268">
+                      (517) 668-5268
+                    </HeaderContactLink>
+                  </HeaderContactText>
+                </HeaderContactItem>
+                
+                <HeaderContactItem>
+                  <HeaderContactIcon>
+                    <FaLinkedinIn />
+                  </HeaderContactIcon>
+                  <HeaderContactText>
+                    <HeaderContactLink href="https://linkedin.com/in/aj-skidmore" target="_blank" rel="noopener noreferrer">
+                      LinkedIn Profile
+                    </HeaderContactLink>
+                  </HeaderContactText>
+                </HeaderContactItem>
+                
+              </HeaderContactInfo>
+            </HeaderContent>
           </ContactCardHeader>
           
           <ContactCardBody>
-            <ContactInfoContainer>
-              <ContactInfoItem>
-                <ContactIcon>
-                  <FaEnvelope />
-                </ContactIcon>
-                <ContactInfo>
-                  <ContactInfoTitle>Email</ContactInfoTitle>
-                  <ContactInfoText>
-                    <ContactLink href="mailto:ajskidless@gmail.com">
-                      ajskidless@gmail.com
-                    </ContactLink>
-                  </ContactInfoText>
-                </ContactInfo>
-              </ContactInfoItem>
-              
-              <ContactInfoItem>
-                <ContactIcon>
-                  <FaMapMarkerAlt />
-                </ContactIcon>
-                <ContactInfo>
-                  <ContactInfoTitle>Location</ContactInfoTitle>
-                  <ContactInfoText>Salt Lake City, Utah</ContactInfoText>
-                  <ContactInfoText>Available for remote work worldwide</ContactInfoText>
-                </ContactInfo>
-              </ContactInfoItem>
-            </ContactInfoContainer>
-            
-            <SocialLinksContainer>
-              <SocialLink 
-                href="https://github.com/ajskidmore" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                isLight={isLight}
-              >
-                <FaGithub />
-              </SocialLink>
-              
-              <SocialLink 
-                href="https://linkedin.com/in/aj-skidmore" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                isLight={isLight}
-              >
-                <FaLinkedinIn />
-              </SocialLink>
-            </SocialLinksContainer>
+            <CompactContactForm />
           </ContactCardBody>
         </ContactCard>
       </div>
