@@ -567,7 +567,7 @@ const About = () => {
               viewport={{ once: true, amount: 0.1 }}
             >
               <TimelinePeriod>December 2023</TimelinePeriod>
-              <TimelineTitle>Bachelors in Experience Architecture</TimelineTitle>
+              <TimelineTitle>Bachelor's in Experience Architecture</TimelineTitle>
               <TimelineSubtitle>Michigan State University</TimelineSubtitle>
               <TimelineText>
                 • Interdisciplinary major combining web development, UX design, and user research
