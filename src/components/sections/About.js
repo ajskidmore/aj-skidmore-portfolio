@@ -479,29 +479,6 @@ const About = () => {
             <TimelineItem
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <TimelinePeriod>July 2024 - Present</TimelinePeriod>
-              <TimelineTitle>Software Engineer</TimelineTitle>
-              <TimelineSubtitle>eFilmHub • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
-              <TimelineText>
-                • Developed comprehensive film industry social platform combining IMDb and Backstage functionality 
-                using React, Node.js, and Google Cloud Services
-              </TimelineText>
-              <TimelineText>
-                • Engineered responsive frontend components for talent discovery and industry networking, 
-                optimizing user experience across devices
-              </TimelineText>
-              <TimelineText>
-                • Implemented scalable cloud architecture with GCP Cloud Storage and Real-time Database 
-                to support user growth
-              </TimelineText>
-            </TimelineItem>
-            
-            <TimelineItem
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true, amount: 0.1 }}
             >
@@ -518,6 +495,29 @@ const About = () => {
               </TimelineText>
               <TimelineText>
                 • Applied UX principles and accessibility standards to ensure optimal user experience and compliance
+              </TimelineText>
+            </TimelineItem>
+
+            <TimelineItem
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              <TimelinePeriod>July 2024 - August 2025</TimelinePeriod>
+              <TimelineTitle>Software Engineer</TimelineTitle>
+              <TimelineSubtitle>eFilmHub • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
+              <TimelineText>
+                • Developed comprehensive film industry social platform combining IMDb and Backstage functionality 
+                using React, Node.js, and Google Cloud Services
+              </TimelineText>
+              <TimelineText>
+                • Engineered responsive frontend components for talent discovery and industry networking, 
+                optimizing user experience across devices
+              </TimelineText>
+              <TimelineText>
+                • Implemented scalable cloud architecture with GCP Cloud Storage and Real-time Database 
+                to support user growth
               </TimelineText>
             </TimelineItem>
             
