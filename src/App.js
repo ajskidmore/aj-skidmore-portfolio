@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import styled from 'styled-components';
@@ -14,7 +14,8 @@ import GlobalTheme from './components/theme/GlobalTheme';
 // Pages
 import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
-import SkillsPage from './pages/SkillsPage';
+// Skills page hidden for now; restore this import and the route below to bring it back.
+// import SkillsPage from './pages/SkillsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import ProjectDetail from './pages/ProjectDetail';
@@ -83,7 +84,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<AboutPage />} />
-                <Route path="/skills" element={<SkillsPage />} />
+                {/* <Route path="/skills" element={<SkillsPage />} /> */}
+                <Route path="/skills" element={<Navigate to="/about" replace />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/contact" element={<ContactPage />} />

@@ -186,16 +186,7 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 </NavItemLink>
               </NavItem>
             
-            <NavItem variants={itemVariants}>
-                <NavItemLink 
-                  to="/skills" 
-                  onClick={handleNavClick}
-                  isLight={isLight}
-                  className={({ isActive }) => isActive ? 'active' : ''}
-                >
-                  Skills
-                </NavItemLink>
-              </NavItem>
+            {/* Skills page hidden for now (route redirects to /about in App.js) */}
             
             <NavItem variants={itemVariants}>
                 <NavItemLink 

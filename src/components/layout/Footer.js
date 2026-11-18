@@ -263,9 +263,6 @@ const Footer = () => {
                 <a href="/about">About Me</a>
               </FooterLink>
               <FooterLink>
-                <a href="/skills">My Skills</a>
-              </FooterLink>
-              <FooterLink>
                 <a href="/projects">Projects</a>
               </FooterLink>
               <FooterLink>

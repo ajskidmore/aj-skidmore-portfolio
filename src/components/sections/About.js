@@ -306,6 +306,24 @@ const TimelineText = styled.p`
   line-height: 1.6;
 `;
 
+const WorkGroupTitle = styled.h4`
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin: 1.25rem 0 0.5rem;
+`;
+
+const WorkList = styled.ul`
+  padding-left: 1.25rem;
+
+  li {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+  }
+`;
+
 const ProjectLink = styled.span`
   color: var(--primary-color);
   text-decoration: none;
@@ -375,6 +393,12 @@ const fadeInUp = {
 };
 
 const About = () => {
+  // About page shows three featured projects, TravelCare+ first.
+  // (The Projects page still shows all five.)
+  const aboutProjects = ['travelcare', 'efilmhub', 'eudo']
+    .map((id) => featuredProjects.find((p) => p.id === id))
+    .filter(Boolean);
+
   // Types once and stops (no endless motion, WCAG 2.2.2)
   const displayedTitle = useTypewriter(['Full-Stack Engineer & UX Designer'], { loop: false });
 
@@ -430,7 +454,7 @@ const About = () => {
             </AboutTitle>
 
             <AboutText>
-              I'm a <HightlightText>full-stack engineer and UX designer</HightlightText> with a degree in <HightlightText>Experience Architecture</HightlightText> from Michigan State University, an interdisciplinary major combining UX &amp; UI design, user research and web development. Over <HightlightText>4+ years</HightlightText> I've delivered <HightlightText>70+ production sites and applications</HightlightText> for clients from small businesses to government, including recurring <HightlightText>WCAG accessibility audits</HightlightText>.
+              I'm a <HightlightText>full-stack engineer and UX designer</HightlightText> with a degree in <HightlightText>Experience Architecture</HightlightText> from Michigan State University, an interdisciplinary major combining UX &amp; UI design, user research and web development. Over <HightlightText>4+ years</HightlightText> I've delivered <HightlightText>30+ production sites and applications</HightlightText> for clients from small businesses to government, including recurring <HightlightText>WCAG accessibility audits</HightlightText>.
             </AboutText>
             <AboutText>
               Because I both design and build, I can take a product from <HightlightText>user research, wireframes and prototypes</HightlightText> through a design system to production code, and make sure the final product matches the design and stays accessible.
@@ -497,24 +521,21 @@ const About = () => {
               <TimelinePeriod>August 2022 - Present</TimelinePeriod>
               <TimelineTitle>Full-Stack Engineer<sup style={{ fontSize: '0.7em', verticalAlign: 'super' }}>*</sup></TimelineTitle>
               <TimelineSubtitle>Shumaker Technology Group • Remote • Full-Time</TimelineSubtitle>
-              <TimelineText>
-                • Collaborate with and provide technical direction to a team of 5 developers across concurrent client projects, conducting code reviews and QA on production deliverables.
-              </TimelineText>
-              <TimelineText>
-                • Manage 350+ WordPress sites across the private and public sectors, including coordinating a fleet-wide response to a critical Elementor Pro security vulnerability (CVSS 9.0).
-              </TimelineText>
-              <TimelineText>
-                • Serve as the primary technical escalation point for complex legacy codebases, including a large-scale e-commerce platform with thousands of SKUs and heavily customized code inherited from a prior development team.
-              </TimelineText>
-              <TimelineText>
-                • Built an enterprise e-commerce platform integrating Salesforce CRM and Stripe payment processing for a software company with $1M+ in funding, and developed the ongoing functionality in the application for renewal invoicing and billing.
-              </TimelineText>
-              <TimelineText>
-                • Conduct recurring ADA and WCAG 2.1 AA audits and remediation for municipal client sites.
-              </TimelineText>
-              <TimelineText>
-                • Delivered 70+ production sites and applications for clients, including municipalities with 25,000+ residents, while managing server administration for client infrastructure.
-              </TimelineText>
+              <WorkGroupTitle>Design &amp; UX</WorkGroupTitle>
+              <WorkList>
+                <li>Designed and developed 30+ production websites and applications for public- and private-sector clients, including municipalities with 25,000+ residents, from stakeholder discovery and wireframes through launch.</li>
+                <li>Translate stakeholder needs into user flows, wireframes and prototypes, then turn them into responsive, accessible interfaces.</li>
+                <li>Designed the purchase and renewal experience for a Salesforce- and Stripe-integrated e-commerce platform serving a software company with $1M+ in funding.</li>
+                <li>Helped create reusable design systems and component templates that speed up new builds and keep a consistent look across a 350+ site portfolio.</li>
+                <li>Conduct recurring ADA and WCAG 2.1 AA audits of municipal sites by hand with screen readers such as NVDA, then guide remediation so public services are usable by residents with disabilities.</li>
+              </WorkList>
+              <WorkGroupTitle>Engineering &amp; Leadership</WorkGroupTitle>
+              <WorkList>
+                <li>Lead and give direction to a team of 5 developers across concurrent client projects, reviewing builds against designs and running code reviews and QA on production deliverables.</li>
+                <li>Built the Salesforce CRM and Stripe payment integration for that e-commerce platform, along with its ongoing renewal invoicing and billing functionality.</li>
+                <li>Manage 350+ WordPress sites, including coordinating a fleet-wide response to a critical Elementor Pro security vulnerability (CVSS 9.0), and handle server administration for client infrastructure.</li>
+                <li>Serve as the primary technical escalation point for complex legacy codebases, including a large-scale e-commerce platform with thousands of SKUs inherited from a prior development team.</li>
+              </WorkList>
               <TimelineNote>* Web Developer → Full-Stack Engineer → Lead Full-Stack Engineer</TimelineNote>
             </TimelineItem>
           </TimelineContainer>
@@ -535,7 +556,7 @@ const About = () => {
           </ExperienceTitle>
 
           <TimelineContainer>
-            {featuredProjects.map((project, index) => (
+            {aboutProjects.map((project, index) => (
               <TimelineItem
                 key={project.id}
                 initial={{ opacity: 0, x: -20 }}
