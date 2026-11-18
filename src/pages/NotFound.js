@@ -53,7 +53,7 @@ const HomeButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   padding: 0.875rem 1.75rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border-radius: var(--border-radius);
   font-weight: 600;
@@ -67,7 +67,7 @@ const HomeButton = styled(Link)`
   }
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 118, 255, 0.35);

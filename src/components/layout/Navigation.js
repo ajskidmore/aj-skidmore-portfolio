@@ -17,7 +17,9 @@ const Nav = styled.nav`
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     padding: 5rem 2rem 2rem;
     transform: ${props => props.mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)'};
-    transition: transform 0.3s ease-in-out, background-color 0.5s ease;
+    /* Hidden menu links must not be reachable by keyboard or screen readers */
+    visibility: ${props => props.mobileMenuOpen ? 'visible' : 'hidden'};
+    transition: transform 0.3s ease-in-out, visibility 0.3s, background-color 0.5s ease;
     display: flex;
     flex-direction: column;
     z-index: 99;
@@ -51,7 +53,7 @@ const NavList = styled.ul`
   }
 `;
 
-const NavItem = styled.li`
+const NavItem = styled(motion.li)`
   position: relative;
   
   @media (max-width: 768px) {
@@ -79,7 +81,7 @@ const NavItemLink = styled(NavLink)`
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
     transition: width 0.3s ease;
   }
   
@@ -99,7 +101,7 @@ const NavItemLink = styled(NavLink)`
 const ContactButton = styled(NavLink)`
   display: inline-block;
   padding: 0.6rem 1.5rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border-radius: var(--border-radius);
   font-weight: 500;
@@ -107,7 +109,7 @@ const ContactButton = styled(NavLink)`
   text-decoration: none;
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -154,16 +156,15 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
 
   return (
     <>
-      <MobileNavBackdrop mobileMenuOpen={mobileMenuOpen} onClick={toggleMobileMenu} />
-      <Nav mobileMenuOpen={mobileMenuOpen} isLight={isLight}>
+      <MobileNavBackdrop mobileMenuOpen={mobileMenuOpen} onClick={toggleMobileMenu} aria-hidden="true" />
+      <Nav mobileMenuOpen={mobileMenuOpen} isLight={isLight} aria-label="Main">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <NavList>
-            <motion.div variants={itemVariants}>
-              <NavItem>
+            <NavItem variants={itemVariants}>
                 <NavItemLink 
                   to="/" 
                   onClick={handleNavClick}
@@ -173,10 +174,8 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                   Home
                 </NavItemLink>
               </NavItem>
-            </motion.div>
             
-            <motion.div variants={itemVariants}>
-              <NavItem>
+            <NavItem variants={itemVariants}>
                 <NavItemLink 
                   to="/about" 
                   onClick={handleNavClick}
@@ -186,10 +185,8 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                   About
                 </NavItemLink>
               </NavItem>
-            </motion.div>
             
-            <motion.div variants={itemVariants}>
-              <NavItem>
+            <NavItem variants={itemVariants}>
                 <NavItemLink 
                   to="/skills" 
                   onClick={handleNavClick}
@@ -199,10 +196,8 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                   Skills
                 </NavItemLink>
               </NavItem>
-            </motion.div>
             
-            <motion.div variants={itemVariants}>
-              <NavItem>
+            <NavItem variants={itemVariants}>
                 <NavItemLink 
                   to="/projects" 
                   onClick={handleNavClick}
@@ -212,11 +207,9 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                   Projects
                 </NavItemLink>
               </NavItem>
-            </motion.div>
             
             {isAuthenticated && (
-              <motion.div variants={itemVariants}>
-                <NavItem>
+              <NavItem variants={itemVariants}>
                   <NavItemLink 
                     to="/admin" 
                     onClick={handleNavClick}
@@ -226,11 +219,9 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                     Admin
                   </NavItemLink>
                 </NavItem>
-              </motion.div>
             )}
             
-            <motion.div variants={itemVariants}>
-              <NavItem>
+            <NavItem variants={itemVariants}>
                 <ContactButton 
                   to="/contact"
                   onClick={handleNavClick}
@@ -239,7 +230,6 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                   Contact
                 </ContactButton>
               </NavItem>
-            </motion.div>
           </NavList>
         </motion.div>
       </Nav>

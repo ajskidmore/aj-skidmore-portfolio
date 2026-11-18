@@ -43,14 +43,14 @@ const ContentWrapper = styled.div`
 `;
 
 // Reusable ThemeBackground component
-const ThemeBackground = ({ children, className }) => {
+const ThemeBackground = ({ children, className, as, id }) => {
   const { isLight } = useContext(ThemeContext);
   
   return (
-    <Container className={className}>
+    <Container className={className} as={as} id={id}>
       {/* Layered backgrounds for smooth transition */}
-      <DarkLayer isActive={!isLight} />
-      <LightLayer isActive={isLight} />
+      <DarkLayer isActive={!isLight} aria-hidden="true" />
+      <LightLayer isActive={isLight} aria-hidden="true" />
       
       <ContentWrapper>
         {children}

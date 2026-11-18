@@ -43,6 +43,74 @@ button {
   cursor: pointer;
 }
 
+/* ---------- Accessibility (WCAG 2.2 AA) ---------- */
+
+/* Visible keyboard focus on every interactive element (2.4.7, 2.4.13) */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Keep focused elements clear of the fixed header (2.4.11) */
+html {
+  scroll-padding-top: 96px;
+}
+
+/* Text for screen readers only */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Skip link: hidden until focused (2.4.1) */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-fill);
+  color: var(--on-primary);
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: var(--secondary-color);
+}
+
+/* Links inside body text are underlined so they don't rely on color alone (1.4.1) */
+main p a {
+  text-decoration: underline;
+}
+
+/* Respect the "reduce motion" setting (2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1200px;

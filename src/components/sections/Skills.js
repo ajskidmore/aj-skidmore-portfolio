@@ -1,17 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  SiReact, SiJavascript, SiHtml5, SiCss3, SiFirebase, 
-  SiNodedotjs, SiGit, SiFigma, SiTypescript, SiWordpress,
-  SiNextdotjs, SiPhp, SiSqlite, SiAmazonwebservices, SiFramer,
-  SiGraphql, SiTensorflow,
-  SiCloud66,
-  SiGooglecloud, 
-  SiKeras,
-  SiScikitlearn
+import {
+  SiReact, SiJavascript, SiHtml5, SiCss3,
+  SiGit, SiFigma, SiTypescript,
+  SiNextdotjs, SiPhp, SiNodedotjs, SiMysql,
+  SiExpress, SiFirebase, SiGooglecloud, SiWordpress, SiPython,
+  SiGithub, SiGooglechrome
 } from 'react-icons/si';
-import { FaAccessibleIcon, FaUser, FaMobileAlt, FaPencilRuler, FaSitemap, FaArrowUp, FaBrain } from 'react-icons/fa';
+import { FaAccessibleIcon, FaMobileAlt, FaPencilRuler, FaSitemap, FaArrowUp, FaVial, FaPalette, FaAws, FaMicrosoft, FaLayerGroup, FaSearch, FaRobot, FaTerminal, FaLink, FaLaptopCode } from 'react-icons/fa';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import ThemeBackground from '../theme/ThemeBackground';
 
@@ -31,7 +28,7 @@ const SectionHeader = styled.div`
   margin-bottom: 4rem;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h1`
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -63,7 +60,7 @@ const SkillsContainer = styled.div`
   margin-bottom: 4rem;
 `;
 
-const SkillCategoryTitle = styled.h3`
+const SkillCategoryTitle = styled.h2`
   margin-bottom: 2rem;
   font-size: 1.5rem;
   text-align: center;
@@ -104,7 +101,7 @@ const SkillCard = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -130,7 +127,7 @@ const SkillIcon = styled.div`
   }
 `;
 
-const SkillName = styled.h4`
+const SkillName = styled.h3`
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -155,7 +152,7 @@ const SkillLevel = styled.div`
     left: 0;
     height: 100%;
     width: ${props => props.level}%;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
     border-radius: 1rem;
   }
 `;
@@ -190,12 +187,12 @@ const CoreCompetencyCard = styled.div`
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+    background: linear-gradient(to bottom, var(--primary-fill), var(--accent-fill));
     border-radius: var(--border-radius) 0 0 var(--border-radius);
   }
 `;
 
-const CompetencyTitle = styled.h4`
+const CompetencyTitle = styled.h3`
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
   color: var(--secondary-color);
@@ -227,7 +224,7 @@ const CompetencyProgress = styled.div`
     left: 0;
     height: 100%;
     width: ${props => props.percentage};
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
     border-radius: 1rem;
   }
 `;
@@ -236,7 +233,7 @@ const CompetencyPercentage = styled.div`
   position: absolute;
   top: 0;
   right: 1.5rem;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
   color: white;
   font-weight: 600;
   padding: 0.3rem 0.8rem;
@@ -249,13 +246,13 @@ const CoreCompetenciesGrid = styled.div`
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
   margin-bottom: 3rem;
-  
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @media (min-width: 992px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -270,7 +267,7 @@ const DecorativeShape = styled.div`
     width: 300px;
     height: 300px;
     border-radius: 53% 47% 52% 48% / 36% 41% 59% 64%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
   }
   
   &.shape-2 {
@@ -279,7 +276,7 @@ const DecorativeShape = styled.div`
     width: 250px;
     height: 250px;
     border-radius: 41% 59% 48% 52% / 50% 51% 49% 50%;
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
   }
 `;
 
@@ -291,7 +288,7 @@ const ScrollToTopButton = styled(motion.button)`
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
   color: white;
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -362,67 +359,92 @@ const Skills = () => {
     });
   };
   
-  // Design & UX skills
+  // Design & UX skills (moved to first priority)
   const designUxSkills = [
-    { name: "Figma", icon: <SiFigma />, level: 90 },
-    { name: "Prototyping", icon: <FaPencilRuler />, level: 95 },
-    { name: "User Research", icon: <FaUser />, level: 90 },
-    { name: "Accessibility Standards", icon: <FaAccessibleIcon />, level: 90 },
-    { name: "Responsive Design", icon: <FaMobileAlt />, level: 95 }
+    { name: "User Research", icon: <FaSearch />, level: 95 },
+    { name: "Usability Testing", icon: <FaVial />, level: 90 },
+    { name: "Wireframing", icon: <FaPencilRuler />, level: 95 },
+    { name: "Prototyping", icon: <FaLayerGroup />, level: 95 },
+    { name: "Figma", icon: <SiFigma />, level: 95 },
+    { name: "UI Design", icon: <FaPalette />, level: 95 },
+    { name: "Responsive Design", icon: <FaMobileAlt />, level: 95 },
+    { name: "Accessibility (WCAG)", icon: <FaAccessibleIcon />, level: 90 },
+    { name: "Information Architecture", icon: <FaSitemap />, level: 90 },
+    { name: "Design Systems", icon: <FaPalette />, level: 85 }
   ];
-  
-  // Frontend skills
+
+  // Frontend skills (implementation)
   const frontendSkills = [
     { name: "React", icon: <SiReact />, level: 90 },
-    { name: "Next.js", icon: <SiNextdotjs />, level: 75 },
     { name: "JavaScript", icon: <SiJavascript />, level: 90 },
     { name: "HTML5", icon: <SiHtml5 />, level: 95 },
     { name: "CSS3", icon: <SiCss3 />, level: 90 },
-    { name: "WordPress", icon: <SiWordpress />, level: 85 }
+    { name: "TypeScript", icon: <SiTypescript />, level: 85 },
+    { name: "Next.js", icon: <SiNextdotjs />, level: 85 }
   ];
-  
-  // Backend skills
+
+  // Backend & Data skills
   const backendSkills = [
-    { name: "Node.js", icon: <SiNodedotjs />, level: 80 },
+    { name: "Node.js", icon: <SiNodedotjs />, level: 85 },
+    { name: "Express.js", icon: <SiExpress />, level: 80 },
+    { name: "Python", icon: <SiPython />, level: 85 },
     { name: "PHP", icon: <SiPhp />, level: 85 },
-    { name: "SQL", icon: <SiSqlite />, level: 80 },
-    { name: "GraphQL", icon: <SiGraphql />, level: 65 },
-    { name: "RESTful APIs", icon: <FaArrowUp />, level: 85 }
+    { name: "MySQL", icon: <SiMysql />, level: 85 },
+    { name: "Firebase", icon: <SiFirebase />, level: 80 }
   ];
-  
+
   // Cloud & DevOps skills
   const cloudDevOpsSkills = [
-    { name: "Cloud Platforms (GCP/Azure/AWS)", icon: <SiGooglecloud />, level: 85 },
-    { name: "Git", icon: <SiGit />, level: 90 },
-    { name: "Performance Optimization", icon: <FaArrowUp />, level: 85 },
-    { name: "Agile Development", icon: <FaSitemap />, level: 90 }
+    { name: "AWS", icon: <FaAws />, level: 75 },
+    { name: "Azure", icon: <FaMicrosoft />, level: 75 },
+    { name: "GCP", icon: <SiGooglecloud />, level: 75 },
+    { name: "Git", icon: <SiGit />, level: 95 }
+  ];
+
+  // Development Tools & Methods
+  const developmentTools = [
+    { name: "Agile/Scrum", icon: <FaSitemap />, level: 95 },
+    { name: "A/B Testing", icon: <FaVial />, level: 85 },
+    { name: "WordPress", icon: <SiWordpress />, level: 85 },
+    { name: "GitHub", icon: <SiGithub />, level: 95 },
+    { name: "VS Code", icon: <FaLaptopCode />, level: 95 },
+    { name: "Chrome DevTools", icon: <SiGooglechrome />, level: 85 },
+    { name: "LangChain", icon: <FaLink />, level: 75 },
+    { name: "Claude API", icon: <FaRobot />, level: 80 },
+    { name: "Claude Code", icon: <FaTerminal />, level: 80 }
   ];
   
   // Core competencies
   const coreCompetencies = [
-    { 
-      name: "Design & UX", 
-      description: "Figma, Prototyping, User Research, Accessibility Standards", 
+    {
+      name: "UX & UI Design",
+      description: "User Research, Usability Testing, Wireframing, Prototyping, Figma, Responsive Design, Information Architecture, Design Systems",
       percentage: "95%",
       id: "design-ux"
     },
-    { 
-      name: "Frontend Development", 
-      description: "React, Next.js, JavaScript, HTML5, CSS3, Responsive Design", 
+    {
+      name: "Frontend Development",
+      description: "React, JavaScript, HTML5, CSS3, TypeScript, Next.js",
       percentage: "90%",
       id: "frontend-development"
     },
-    { 
-      name: "Backend Development", 
-      description: "Node.js, PHP, SQL, GraphQL, RESTful APIs", 
-      percentage: "80%",
-      id: "backend-development"
-    },
-    { 
-      name: "Cloud & DevOps", 
-      description: "Cloud Platforms (GCP/Azure/AWS), Git, Performance Optimization, Agile Development", 
+    {
+      name: "Backend & Data",
+      description: "Node.js, Express.js, Python, PHP, MySQL, REST APIs, Database Design, Firebase",
       percentage: "85%",
+      id: "backend-data"
+    },
+    {
+      name: "Cloud & DevOps",
+      description: "AWS, Azure, GCP, Git, CI/CD Pipelines",
+      percentage: "80%",
       id: "cloud-devops"
+    },
+    {
+      name: "Tools & Methods",
+      description: "Git, GitHub, Agile/Scrum, A/B Testing, WordPress, VS Code, Chrome DevTools, LangChain, Claude API, Claude Code",
+      percentage: "90%",
+      id: "development-tools"
     }
   ];
   
@@ -441,7 +463,7 @@ const Skills = () => {
           >
             <SectionTitle>My Skills</SectionTitle>
             <SectionSubtitle>
-              Technologies and methodologies I work with to create exceptional digital experiences
+              The full-stack technical skills I use to build, ship, and scale production web applications
             </SectionSubtitle>
           </motion.div>
         </SectionHeader>
@@ -472,7 +494,7 @@ const Skills = () => {
         </SkillsContainer>
         
         <SkillsContainer id="design-ux">
-          <SkillCategoryTitle>Design & UX</SkillCategoryTitle>
+          <SkillCategoryTitle>UX & UI Design</SkillCategoryTitle>
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -483,7 +505,7 @@ const Skills = () => {
               {designUxSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
-                    <SkillIcon>{skill.icon}</SkillIcon>
+                    <SkillIcon aria-hidden="true">{skill.icon}</SkillIcon>
                     <SkillName>{skill.name}</SkillName>
                     <SkillLevel level={skill.level} isLight={isLight} />
                   </SkillCard>
@@ -492,7 +514,7 @@ const Skills = () => {
             </SkillsGrid>
           </motion.div>
         </SkillsContainer>
-        
+
         <SkillsContainer id="frontend-development">
           <SkillCategoryTitle>Frontend Development</SkillCategoryTitle>
           <motion.div
@@ -505,7 +527,7 @@ const Skills = () => {
               {frontendSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
-                    <SkillIcon>{skill.icon}</SkillIcon>
+                    <SkillIcon aria-hidden="true">{skill.icon}</SkillIcon>
                     <SkillName>{skill.name}</SkillName>
                     <SkillLevel level={skill.level} isLight={isLight} />
                   </SkillCard>
@@ -514,9 +536,9 @@ const Skills = () => {
             </SkillsGrid>
           </motion.div>
         </SkillsContainer>
-        
-        <SkillsContainer id="backend-development">
-          <SkillCategoryTitle>Backend Development</SkillCategoryTitle>
+
+        <SkillsContainer id="backend-data">
+          <SkillCategoryTitle>Backend & Data</SkillCategoryTitle>
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -527,7 +549,7 @@ const Skills = () => {
               {backendSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
-                    <SkillIcon>{skill.icon}</SkillIcon>
+                    <SkillIcon aria-hidden="true">{skill.icon}</SkillIcon>
                     <SkillName>{skill.name}</SkillName>
                     <SkillLevel level={skill.level} isLight={isLight} />
                   </SkillCard>
@@ -536,7 +558,7 @@ const Skills = () => {
             </SkillsGrid>
           </motion.div>
         </SkillsContainer>
-        
+
         <SkillsContainer id="cloud-devops">
           <SkillCategoryTitle>Cloud & DevOps</SkillCategoryTitle>
           <motion.div
@@ -549,7 +571,29 @@ const Skills = () => {
               {cloudDevOpsSkills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
                   <SkillCard isLight={isLight}>
-                    <SkillIcon>{skill.icon}</SkillIcon>
+                    <SkillIcon aria-hidden="true">{skill.icon}</SkillIcon>
+                    <SkillName>{skill.name}</SkillName>
+                    <SkillLevel level={skill.level} isLight={isLight} />
+                  </SkillCard>
+                </motion.div>
+              ))}
+            </SkillsGrid>
+          </motion.div>
+        </SkillsContainer>
+
+        <SkillsContainer id="development-tools">
+          <SkillCategoryTitle>Tools & Methods</SkillCategoryTitle>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            <SkillsGrid>
+              {developmentTools.map((skill, index) => (
+                <motion.div key={index} variants={itemVariants}>
+                  <SkillCard isLight={isLight}>
+                    <SkillIcon aria-hidden="true">{skill.icon}</SkillIcon>
                     <SkillName>{skill.name}</SkillName>
                     <SkillLevel level={skill.level} isLight={isLight} />
                   </SkillCard>

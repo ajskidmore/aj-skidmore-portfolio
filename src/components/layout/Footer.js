@@ -50,7 +50,7 @@ const FooterAbout = styled.p`
   color: var(--text-color);
 `;
 
-const FooterTitle = styled.h4`
+const FooterTitle = styled.h2`
   font-size: 1.25rem;
   color: var(--secondary-color);
   margin-bottom: 1.5rem;
@@ -65,7 +65,7 @@ const FooterTitle = styled.h4`
     left: 0;
     width: 50px;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
   }
 `;
 
@@ -129,7 +129,7 @@ const SocialLink = styled.a`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -215,7 +215,7 @@ const Footer = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   
   return (
-    <StyledFooterContainer>
+    <StyledFooterContainer forwardedAs="footer">
       <div className="container">
         <FooterTop>
           <FooterColumn>
@@ -223,8 +223,8 @@ const Footer = () => {
               <FooterLogoHighlight>A.J.</FooterLogoHighlight>Skidmore
             </FooterLogo>
             <FooterAbout>
-              Software & UX Engineer focused on creating intuitive, 
-              user-centered digital experiences that bridge the gap between design and development.
+              Full-Stack Engineer and UX Designer focused on creating intuitive,
+              accessible, user-centered digital experiences.
             </FooterAbout>
             <SocialLinks>
               <SocialLink 
@@ -277,13 +277,13 @@ const Footer = () => {
           <FooterColumn>
             <FooterTitle>Contact Info</FooterTitle>
             <ContactItem>
-              <ContactIcon>
+              <ContactIcon aria-hidden="true">
                 <FaEnvelope />
               </ContactIcon>
               <ContactText>hello@ajskidmore.com</ContactText>
             </ContactItem>
             <ContactItem>
-              <ContactIcon>
+              <ContactIcon aria-hidden="true">
                 <FaPhone />
               </ContactIcon>
               <ContactText>(517) 668-5268</ContactText>
@@ -304,7 +304,7 @@ const Footer = () => {
               </LogoutButton>
             ) : (
               <LoginLink onClick={() => setShowLoginModal(true)} isLight={isLight}>
-                <FaSignInAlt /> Admin Login
+                <FaSignInAlt aria-hidden="true" /> Admin Login
               </LoginLink>
             )}
           </FooterBottomContent>

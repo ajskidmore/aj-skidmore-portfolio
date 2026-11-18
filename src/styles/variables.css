@@ -1,38 +1,53 @@
 :root {
-    /* Base Theme Colors */
-    --primary-color: #3b82f6;
-    --accent-color: #0070f3;
-    
+    /* Base Theme Colors
+       WCAG 2.2 AA: --primary-color and --accent-color are used for TEXT, so each theme
+       sets them to a blue with at least 4.5:1 contrast against its backgrounds.
+       Buttons with white text use --primary-fill / --accent-fill, which stay the same
+       in both themes (white on #2563eb = 5.17:1, white on #1d4ed8 = 6.70:1). */
+    --primary-color: #2563eb;   /* 5.17:1 on white, 4.95:1 on #f9fafb */
+    --accent-color: #1d4ed8;    /* 6.70:1 on white */
+    --primary-fill: #2563eb;
+    --accent-fill: #1d4ed8;
+    --on-primary: #ffffff;
+    --focus-ring: #2563eb;
+
     /* Light Theme */
     --secondary-color-light: #1e293b;
     --text-color-light: #333333;
     --background-color-light: #ffffff;
     --section-bg-light: #f9fafb;
     --card-bg-light: #ffffff;
-    
+    --border-color-light: rgba(0, 0, 0, 0.15);
+
     /* Dark Theme */
     --secondary-color-dark: #e0e0e0;
     --text-color-dark: #e0e0e0;
     --background-color-dark: #121212;
     --section-bg-dark: #1a1a1a;
     --card-bg-dark: #222222;
-    
+    --border-color-dark: rgba(255, 255, 255, 0.2);
+
     /* Shared styles */
     --border-radius: 8px;
-    
+
     /* Default theme (light) */
     --secondary-color: var(--secondary-color-light);
     --text-color: var(--text-color-light);
     --background-color: var(--background-color-light);
     --section-bg: var(--section-bg-light);
     --card-bg: var(--card-bg-light);
+    --border-color: var(--border-color-light);
   }
-  
+
   /* Dark theme class applied to body */
   body.dark-theme {
+    --primary-color: #60a5fa;   /* 6.26:1 on #222222, 7.37:1 on #121212 */
+    --accent-color: #93c5fd;    /* 8.82:1 on #222222 */
+    --focus-ring: #93c5fd;
     --secondary-color: var(--secondary-color-dark);
     --text-color: var(--text-color-dark);
     --background-color: var(--background-color-dark);
     --section-bg: var(--section-bg-dark);
     --card-bg: var(--card-bg-dark);
+    --border-color: var(--border-color-dark);
   }

@@ -101,7 +101,7 @@ const Input = styled.input`
 `;
 
 const LoginButton = styled.button`
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border: none;
   padding: 0.875rem 1.5rem;
@@ -113,7 +113,7 @@ const LoginButton = styled.button`
   margin-top: 0.5rem;
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     transform: translateY(-2px);
   }
   

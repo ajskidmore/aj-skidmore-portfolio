@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import styled from 'styled-components';
+import { MotionConfig } from 'framer-motion';
 
 // Layout components
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import GlobalTheme from './components/theme/GlobalTheme';
+// import Chatbot from './components/chat/Chatbot'; // Temporarily disabled
 
 // Pages
 import Home from './pages/Home';
@@ -72,10 +74,12 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
+          <MotionConfig reducedMotion="user">
           <GlobalTheme />
+          <a className="skip-link" href="#main-content">Skip to main content</a>
           <AppContainer>
             <Header />
-            <MainContent>
+            <MainContent id="main-content" tabIndex={-1}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<AboutPage />} />
@@ -88,9 +92,11 @@ function App() {
               </Routes>
             </MainContent>
             <Footer />
+            {/* <Chatbot /> */} {/* Temporarily disabled */}
           </AppContainer>
           {/* This is a fallback container that will be used if the useEffect doesn't run */}
           <ModalContainer id="modal-root-fallback" />
+          </MotionConfig>
         </Router>
       </AuthProvider>
     </ThemeProvider>

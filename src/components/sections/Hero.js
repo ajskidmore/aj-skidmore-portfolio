@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
+import { motion, useReducedMotion } from 'framer-motion';
+import { FaArrowRight, FaPause, FaPlay } from 'react-icons/fa';
+import useTypewriter from '../../hooks/useTypewriter';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
@@ -11,6 +12,15 @@ const StyledRoot = styled.div`
   --transition-timing: ease-in-out;
   --dark-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   --light-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+  @keyframes blink {
+    0%, 50% {
+      border-color: transparent;
+    }
+    50%, 100% {
+      border-color: currentColor;
+    }
+  }
 `;
 
 const HeroSection = styled.section`
@@ -91,36 +101,41 @@ const HeroGreeting = styled(motion.p)`
 `;
 
 const HeroTitle = styled(motion.h1)`
-  font-size: 3.5rem;
+  font-size: 2.75rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
   line-height: 1.2;
-  color: ${props => props.isLight 
-    ? 'transparent' 
+  white-space: nowrap;
+  color: ${props => props.isLight
+    ? 'transparent'
     : 'white'};
-  background: ${props => props.isLight 
+  background: ${props => props.isLight
     ? 'linear-gradient(to right, var(--secondary-color), var(--primary-color))'
     : 'none'};
   -webkit-background-clip: ${props => props.isLight ? 'text' : 'none'};
   background-clip: ${props => props.isLight ? 'text' : 'none'};
   transition: all var(--transition-duration) var(--transition-timing);
-  
+
   @media (min-width: 768px) {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
+  }
+
+  @media (max-width: 768px) {
+    white-space: normal;
   }
 `;
 
-const HeroSubtitle = styled(motion.h2)`
-  font-size: 1.5rem;
+const HeroSubtitle = styled(motion.p)`
+  font-size: 1.1rem;
   font-weight: 400;
   color: ${props => props.isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
   margin-bottom: 2rem;
   line-height: 1.5;
   max-width: 650px;
   transition: color var(--transition-duration) var(--transition-timing);
-  
+
   @media (min-width: 768px) {
-    font-size: 1.75rem;
+    font-size: 1.35rem;
   }
 `;
 
@@ -131,12 +146,32 @@ const CTAContainer = styled(motion.div)`
   flex-wrap: wrap;
 `;
 
+// Pause / play control for the moving hero animations (WCAG 2.2.2)
+const PauseButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  margin-top: 1.25rem;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: ${props => props.$isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
+  background: transparent;
+  border: 1px solid ${props => props.$isLight ? 'rgba(0, 0, 0, 0.45)' : 'rgba(255, 255, 255, 0.55)'};
+  border-radius: 999px;
+
+  &:hover {
+    border-color: var(--primary-color);
+  }
+`;
+
 // Modified CTA components to use React Router's Link
 const PrimaryCTA = styled(Link)`
   display: inline-flex;
   align-items: center;
   padding: 0.875rem 1.75rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border-radius: var(--border-radius);
   font-weight: 600;
@@ -151,7 +186,7 @@ const PrimaryCTA = styled(Link)`
   }
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 118, 255, 0.35);
@@ -187,7 +222,7 @@ const PrimaryCTAFallback = styled.a`
   display: inline-flex;
   align-items: center;
   padding: 0.875rem 1.75rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border-radius: var(--border-radius);
   font-weight: 600;
@@ -202,7 +237,7 @@ const PrimaryCTAFallback = styled.a`
   }
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 118, 255, 0.35);
@@ -356,7 +391,14 @@ const Hero = () => {
   const [activeCodeLine, setActiveCodeLine] = useState(0);
   const { isLight } = useContext(ThemeContext);
   const [useReactRouter, setUseReactRouter] = useState(true);
-  
+
+  // Animations can be paused (WCAG 2.2.2) and stop for "reduce motion" (2.3.3)
+  const [animationsPaused, setAnimationsPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const motionStopped = animationsPaused || reduceMotion;
+  const titles = ['Full-Stack Engineer', 'UX Designer'];
+  const displayedTitle = useTypewriter(titles, { paused: animationsPaused });
+
   // Code lines to display in the computer
   const codeLines = [
     "// Hello World!",
@@ -366,7 +408,7 @@ const Hero = () => {
     "  ",
     "  return {",
     "    name: 'A.J. Skidmore',",
-    "    role: 'Software & UX Engineer',",
+    "    role: 'Full-Stack Engineer',",
     "    contact: 'hello@ajskidmore.com'",
     "  };",
     "}",
@@ -378,23 +420,24 @@ const Hero = () => {
     // Check if React Router is available
     try {
       // This will throw an error if we're not in a React Router context
-      const reactRouterAvailable = !!window.__REACT_ROUTER__ || 
+      const reactRouterAvailable = !!window.__REACT_ROUTER__ ||
                                    (typeof require === 'function' && require('react-router-dom'));
       setUseReactRouter(true);
     } catch (e) {
       setUseReactRouter(false);
     }
-    
-    // Cycle through code lines
+
+    // Cycle through code lines (stops when animations are paused)
+    if (motionStopped) return undefined;
     const interval = setInterval(() => {
       setActiveCodeLine(prev => (prev + 1) % codeLines.length);
     }, 2000);
-    
+
     return () => clearInterval(interval);
-  }, [codeLines.length]);
+  }, [codeLines.length, motionStopped]);
   
   useEffect(() => {
-    if (!screenRef.current) return;
+    if (!screenRef.current || motionStopped) return undefined;
     
     // Random movement for the cursor within the computer screen
     const moveInterval = setInterval(() => {
@@ -409,7 +452,7 @@ const Hero = () => {
     }, 3000);
     
     return () => clearInterval(moveInterval);
-  }, []);
+  }, [motionStopped]);
   
   return (
     <StyledRoot>
@@ -435,7 +478,7 @@ const Hero = () => {
               transition={{ duration: 0.5 }}
               isLight={isLight}
             >
-              👋 Hi! I'm A.J. Skidmore
+              <span aria-hidden="true">👋 </span>Hi! I'm A.J. Skidmore
             </HeroGreeting>
             
             <HeroTitle
@@ -445,7 +488,16 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               isLight={isLight}
             >
-              Software & UX Engineer
+              <span className="visually-hidden">Full-Stack Engineer and UX Designer</span>
+              <span aria-hidden="true">
+                {displayedTitle}
+                <span style={{
+                  borderRight: '3px solid currentColor',
+                  marginLeft: '2px',
+                  animation: motionStopped ? 'none' : 'blink 1s step-end infinite'
+                }}>
+                </span>
+              </span>
             </HeroTitle>
             
             <HeroSubtitle
@@ -455,7 +507,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               isLight={isLight}
             >
-              I create intuitive, user-centered digital experiences by bridging the gap between design and development.
+              I design and build accessible, user-centered products, from user research, wireframes and prototypes to production code.
             </HeroSubtitle>
             
             <CTAContainer
@@ -484,10 +536,22 @@ const Hero = () => {
                 </>
               )}
             </CTAContainer>
+            {!reduceMotion && (
+              <PauseButton
+                type="button"
+                onClick={() => setAnimationsPaused((p) => !p)}
+                aria-pressed={animationsPaused}
+                $isLight={isLight}
+              >
+                {animationsPaused ? <FaPlay aria-hidden="true" /> : <FaPause aria-hidden="true" />}
+                {animationsPaused ? 'Play animations' : 'Pause animations'}
+              </PauseButton>
+            )}
           </HeroContent>
         </div>
         
         <ComputerContainer
+          aria-hidden="true"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}

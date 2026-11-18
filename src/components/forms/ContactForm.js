@@ -14,7 +14,7 @@ const FormContainer = styled(motion.div)`
   margin-top: 2rem;
 `;
 
-const FormTitle = styled.h3`
+const FormTitle = styled.h2`
   color: var(--secondary-color);
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
@@ -112,7 +112,7 @@ const TextArea = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -128,7 +128,7 @@ const SubmitButton = styled.button`
   margin-top: 1rem;
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
   }

@@ -1,15 +1,12 @@
 // src/components/sections/Projects.js
-import React, { useEffect, useState, useContext } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../../firebase/config';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaChevronRight } from 'react-icons/fa';
-import { createPortal } from 'react-dom'; // Import createPortal
-import ProjectDetailModal from '../projects/ProjectDetailModal';
 import ThemeBackground from '../theme/ThemeBackground';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { featuredProjects, ROLE } from '../../data/projects';
 
 const StyledProjectsSection = styled(ThemeBackground)`
   padding: 7rem 0;
@@ -22,7 +19,7 @@ const SectionHeader = styled.div`
   margin-bottom: 4rem;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h1`
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -51,8 +48,12 @@ const SectionSubtitle = styled.p`
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ProjectCard = styled(motion.div)`
@@ -74,15 +75,18 @@ const ProjectImageContainer = styled.div`
   overflow: hidden;
   aspect-ratio: 16 / 8; /* Maintains consistent ratio across all project cards */
   background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Changed back to cover to fill the container */
-  object-position: center; /* Centers the image within the container */
+  object-fit: cover;
+  object-position: top;
   transition: transform 0.5s ease;
-  
+
   ${ProjectCard}:hover & {
     transform: scale(1.05);
   }
@@ -120,7 +124,7 @@ const ProjectCategory = styled.span`
   margin-bottom: 1rem;
 `;
 
-const ProjectTitle = styled.h3`
+const ProjectTitle = styled.h2`
   margin-bottom: 0.75rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -130,6 +134,13 @@ const ProjectTitle = styled.h3`
   ${ProjectCard}:hover & {
     color: var(--primary-color);
   }
+`;
+
+const ProjectRole = styled.p`
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--secondary-color);
 `;
 
 const ProjectSummary = styled.p`
@@ -148,7 +159,7 @@ const ProjectTags = styled.div`
 
 const ProjectTag = styled.span`
   padding: 0.35rem 0.75rem;
-  background-color: ${props => props.isLight ? '#f0f4f8' : 'rgba(255, 255, 255, 0.1)'};
+  background-color: ${props => props.$isLight ? '#f0f4f8' : 'rgba(255, 255, 255, 0.1)'};
   border-radius: 4px;
   font-size: 0.8rem;
   color: var(--secondary-color);
@@ -160,27 +171,25 @@ const ProjectTag = styled.span`
   }
 `;
 
-const ProjectDetailsLink = styled.button`
+const ProjectDetailsLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   color: var(--primary-color);
   font-weight: 600;
   font-size: 0.95rem;
   margin-top: 0.5rem;
-  transition: all 0.3s ease;
-  background: none;
-  border: none;
-  padding: 0;
+  text-decoration: none;
   cursor: pointer;
-  
+  transition: all 0.3s ease;
+
   svg {
     margin-left: 0.5rem;
     transition: transform 0.3s ease;
   }
-  
+
   &:hover {
     color: var(--accent-color);
-    
+
     svg {
       transform: translateX(3px);
     }
@@ -198,7 +207,7 @@ const DecorativeShape = styled.div`
     width: 300px;
     height: 300px;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
   }
   
   &.shape-2 {
@@ -207,28 +216,7 @@ const DecorativeShape = styled.div`
     width: 350px;
     height: 350px;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    background-color: var(--accent-color);
-  }
-`;
-
-// Loading component
-const LoadingSpinner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-  
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+    background-color: var(--accent-fill);
   }
 `;
 
@@ -252,127 +240,14 @@ const itemVariants = {
   }
 };
 
-// Function to create a modal container if it doesn't exist
-const getOrCreateModalContainer = () => {
-  let modalRoot = document.getElementById('modal-root');
-  if (!modalRoot) {
-    modalRoot = document.createElement('div');
-    modalRoot.setAttribute('id', 'modal-root');
-    document.body.appendChild(modalRoot);
-  }
-  return modalRoot;
-};
-
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
   const { isLight } = useContext(ThemeContext);
-  
-  // Updated project data with correct image paths
-  const customProjects = [
-    {
-      id: 'peopleview',
-      title: 'HR Analytics Dashboard',
-      category: 'Software Engineer',
-      summary: 'An interactive dashboard focused on reducing employee turnover through data-driven insights.',
-      description: 'Eudo is a comprehensive HR analytics platform designed to help organizations identify and address factors contributing to employee turnover. The dashboard provides real-time visualization of key HR metrics derived from a proprietary framework.',
-      technologies: ['React', 'Node.js', 'Azure', 'UX Design'],
-      imageUrl: '/assets/images/Eudo.png',
-      features: [
-        'Interactive data visualizations',
-        'Predictive turnover modeling',
-        'Department-specific analytics',
-        'Customizable reporting tools'
-      ]
-    },
-    {
-      id: 'efilmhub',
-      title: 'Film Industry Platform',
-      category: 'Software Engineer',
-      summary: 'A comprehensive tool connecting filmmakers and providing a marketplace for hiring talent and trading equipment.',
-      description: 'eFilmHub is a one-stop platform for the film industry, designed to streamline collaboration and resource management for filmmakers located in Africa. The platform allows filmmakers to discover and connect with talent, post job opportunities, facilitate equipment commerce through a real-time online forum.',
-      technologies: ['React', 'Node.js', 'GCP', 'UX Design', 'Cloud Storage', 'Real-time Database'],
-      imageUrl: '/assets/images/efilmhub.png',
-      features: [
-        'Talent discovery and hiring',
-        'Equipment marketplace',
-        'Project collaboration tools',
-        'Production management features',
-        'Industry networking forums'
-      ]
-    },
-    {
-      id: 'ai-data-analyzer',
-      title: 'Tech Firm Website',
-      category: 'UX Engineer',
-      summary: 'Complete redesign and development of a web development company website with modern UI/UX principles.',
-      description: 'This project involved a full-scale redesign of a web development company\'s online presence. The client specializes in creating websites and web applications for businesses across multiple industries. The redesign focused on showcasing their portfolio, streamlining user flows, and implementing modern design principles to reflect their expertise.',
-      technologies: ['HTML/CSS', 'JavaScript', 'PHP', 'UX Design', 'Figma', 'WordPress', 'Responsive Design', 'SEO Optimization'],
-      imageUrl: '/assets/images/stg.png',
-      features: [
-        'Custom WordPress theme development',
-        'Portfolio showcase with case studies',
-        'Interactive service descriptions',
-        'Client testimonial integration',
-        'Optimized for performance and SEO'
-      ]
-    }
-  ];
-  
-  // Ensure modal container is available
-  useEffect(() => {
-    getOrCreateModalContainer();
-  }, []);
-  
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        // Try to get projects from Firebase
-        const projectsCollection = collection(db, 'projects');
-        const projectsSnapshot = await getDocs(projectsCollection);
-        const projectsList = projectsSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        
-        if (projectsList.length > 0) {
-          setProjects(projectsList);
-        } else {
-          // Use the custom projects if Firebase is empty or fails
-          setProjects(customProjects);
-        }
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        // Use the custom projects if Firebase fails
-        setProjects(customProjects);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchProjects();
-  }, []);
-  
-  const openProjectModal = (project) => {
-    setSelectedProject(project);
-    setModalOpen(true);
-    // Add a class to prevent body scrolling when modal is open
-    document.body.classList.add('modal-open');
-  };
-  
-  const closeProjectModal = () => {
-    setModalOpen(false);
-    // Remove the class to allow body scrolling when modal is closed
-    document.body.classList.remove('modal-open');
-  };
 
   return (
     <>
       <StyledProjectsSection id="projects">
-        <DecorativeShape className="shape-1" />
-        <DecorativeShape className="shape-2" />
+        <DecorativeShape className="shape-1" aria-hidden="true" />
+        <DecorativeShape className="shape-2" aria-hidden="true" />
         
         <div className="container">
           <SectionHeader>
@@ -384,79 +259,53 @@ const Projects = () => {
             >
               <SectionTitle>Featured Projects</SectionTitle>
               <SectionSubtitle>
-                A selection of my most recent and impactful work
+                Products I designed and built end to end, from research and interface design to production code
               </SectionSubtitle>
             </motion.div>
           </SectionHeader>
           
-          {loading ? (
-            <LoadingSpinner>
-              <div className="spinner"></div>
-            </LoadingSpinner>
-          ) : (
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <ProjectsGrid>
-                {projects.map((project) => (
-                  <motion.div key={project.id} variants={itemVariants}>
-                    <ProjectCard>
-                      <ProjectImageContainer>
-                        <ProjectImage 
-                          src={project.imageUrl} 
-                          alt={project.title}
-                          onError={(e) => {
-                            // Fixed fallback image paths
-                            if (project.id === 'peopleview') {
-                              e.target.src = "/assets/images/Eudo.png"; // Try the correct path first
-                            } else if (project.id === 'efilmhub') {
-                              e.target.src = "/assets/images/efilmhub.png"; // Try the correct path first
-                            } else if (project.id === 'ai-data-analyzer') {
-                              e.target.src = "/assets/images/stg.png"; // Try the correct path first
-                            } else {
-                              // If all else fails, use an icon from a CDN
-                              e.target.src = "https://cdn-icons-png.flaticon.com/512/1356/1356479.png";
-                            }
-                          }}
-                        />
-                        <ProjectOverlay />
-                      </ProjectImageContainer>
-                      
-                      <ProjectContent>
-                        <ProjectCategory>{project.category}</ProjectCategory>
-                        <ProjectTitle>{project.title}</ProjectTitle>
-                        <ProjectSummary>{project.summary}</ProjectSummary>
-                        <ProjectTags>
-                          {project.technologies && project.technologies.slice(0, 4).map((tech, techIndex) => (
-                            <ProjectTag key={techIndex} isLight={isLight}>{tech}</ProjectTag>
-                          ))}
-                        </ProjectTags>
-                        <ProjectDetailsLink onClick={() => openProjectModal(project)}>
-                          View Project Details <FaChevronRight />
-                        </ProjectDetailsLink>
-                      </ProjectContent>
-                    </ProjectCard>
-                  </motion.div>
-                ))}
-              </ProjectsGrid>
-            </motion.div>
-          )}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            <ProjectsGrid role="list">
+              {featuredProjects.map((project) => (
+                <motion.div key={project.id} variants={itemVariants} role="listitem">
+                  <ProjectCard>
+                    <ProjectImageContainer>
+                      <ProjectImage
+                        src={project.imageUrl}
+                        alt=""
+                        width="1440"
+                        height="720"
+                        loading="lazy"
+                      />
+                      <ProjectOverlay />
+                    </ProjectImageContainer>
+                    
+                    <ProjectContent>
+                      <ProjectCategory>{project.category}</ProjectCategory>
+                      <ProjectTitle>{project.name}</ProjectTitle>
+                      <ProjectRole>Role: {ROLE}</ProjectRole>
+                      <ProjectSummary>{project.summary}</ProjectSummary>
+                      <ProjectTags aria-label={`Tools used for ${project.name}`}>
+                        {project.tools.slice(0, 4).map((tool) => (
+                          <ProjectTag key={tool} $isLight={isLight}>{tool}</ProjectTag>
+                        ))}
+                      </ProjectTags>
+                      <ProjectDetailsLink to={`/projects/${project.id}`}>
+                        View project<span className="visually-hidden">: {project.name}</span> <FaChevronRight aria-hidden="true" />
+                      </ProjectDetailsLink>
+                    </ProjectContent>
+                  </ProjectCard>
+                </motion.div>
+              ))}
+            </ProjectsGrid>
+          </motion.div>
         </div>
       </StyledProjectsSection>
-      
-      {/* Use React Portal for the modal */}
-      {modalOpen && selectedProject && createPortal(
-        <ProjectDetailModal 
-          project={selectedProject}
-          isOpen={modalOpen}
-          onClose={closeProjectModal}
-          isLight={isLight}
-        />,
-        getOrCreateModalContainer()
-      )}
     </>
   );
 };

@@ -88,7 +88,7 @@ const TextArea = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  background-color: var(--primary-color);
+  background-color: var(--primary-fill);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -103,7 +103,7 @@ const SubmitButton = styled.button`
   gap: 0.5rem;
   
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-fill);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
   }

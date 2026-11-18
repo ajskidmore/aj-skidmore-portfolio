@@ -21,7 +21,7 @@ const SectionHeader = styled.div`
   margin-bottom: 4rem;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h1`
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -59,7 +59,7 @@ const ContactCard = styled(motion.div)`
 `;
 
 const ContactCardHeader = styled.div`
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
   color: white;
   padding: 2rem;
   position: relative;
@@ -91,7 +91,7 @@ const HeaderContent = styled.div`
 
 const TitleSection = styled.div``;
 
-const ContactTitle = styled.h3`
+const ContactTitle = styled.h2`
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -156,7 +156,7 @@ const DecorativeCircle = styled.div`
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
   opacity: 0.03;
   z-index: 0;
   
@@ -209,7 +209,7 @@ const Contact = () => {
             <HeaderContent>
               <TitleSection>
                 <ContactTitle>A.J. Skidmore</ContactTitle>
-                <ContactSubtitle>Software & UX Engineer</ContactSubtitle>
+                <ContactSubtitle>Full-Stack Engineer</ContactSubtitle>
               </TitleSection>
               
               <HeaderContactInfo>

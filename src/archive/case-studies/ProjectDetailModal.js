@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaTimes, FaEnvelope } from 'react-icons/fa';
+import { FaTimes, FaEnvelope, FaExternalLinkAlt } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Use a portal for the modal to ensure it's outside the normal DOM hierarchy
@@ -43,13 +43,8 @@ const ModalHeader = styled.div`
 `;
 
 const HeaderLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  display: block;
+  position: relative;
 `;
 
 const HeaderContent = styled.div`
@@ -103,33 +98,31 @@ const CloseButton = styled.button`
 `;
 
 const ProjectImageContainer = styled.div`
-  width: 100%;
-  padding-top: 100%; /* Creates a perfect square */
+  float: left;
+  width: 350px;
+  height: 250px;
+  margin: 0 2rem 1rem 0;
   position: relative;
   overflow: hidden;
-  border-radius: 12px; /* Increased border radius */
+  border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background-color: ${props => props.isLight ? '#f5f5f5' : '#1e1e1e'}; /* Filler color */
-  
+  background-color: ${props => props.isLight ? '#f5f5f5' : '#1e1e1e'};
+
   @media (max-width: 768px) {
-    margin-top: 1.5rem;
+    float: none;
+    width: 100%;
+    height: 250px;
+    margin: 0 0 1.5rem 0;
   }
 `;
 
 const ProjectImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  max-width: calc(100% - 32px);
-  max-height: calc(100% - 32px);
-  object-fit: contain; /* Shows full image without cropping */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   transition: transform 0.3s ease;
-  border-radius: 5px; /* Specific 5px border radius as requested */
-  border: 1px solid ${props => props.isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'};
-  
+  border-radius: 12px;
+
   &:hover {
     transform: scale(1.05);
   }
@@ -148,12 +141,35 @@ const ContentLayout = styled.div`
   padding: 0;
 `;
 
-const ProjectDescription = styled.p`
+const ProjectDescription = styled.div`
   margin-top: 1rem;
   line-height: 1.8;
   color: var(--text-color);
-  font-size: 1.1rem;
-  
+  font-size: 1.05rem;
+  overflow: auto;
+  white-space: pre-line;
+
+  strong {
+    display: block;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: ${props => props.isLight ? 'var(--secondary-color-light)' : 'var(--secondary-color-dark)'};
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+  }
+
   @media (max-width: 768px) {
     margin-bottom: 1rem;
   }
@@ -239,12 +255,37 @@ const FeaturesList = styled.ul`
   }
 `;
 
+const LoginRequiredNote = styled.div`
+  background-color: ${props => props.isLight ? '#fff3cd' : 'rgba(255, 193, 7, 0.1)'};
+  border-left: 4px solid #ffc107;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  color: ${props => props.isLight ? '#856404' : '#ffd54f'};
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: ${props => props.isLight ? '#856404' : '#ffc107'};
+  }
+`;
+
 const ModalFooter = styled.div`
   padding: 1.5rem 2.5rem 2.5rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
   border-top: 1px solid ${props => props.isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)'};
   margin-top: 1rem;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 const ContactButton = styled.button`
@@ -262,14 +303,43 @@ const ContactButton = styled.button`
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  
+
   svg {
     margin-right: 0.75rem;
     font-size: 1.1rem;
   }
-  
+
   &:hover {
     background-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const ProjectLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: ${props => props.isLight ? '#f8f9fa' : 'rgba(255, 255, 255, 0.1)'};
+  color: ${props => props.isLight ? 'var(--secondary-color-light)' : 'var(--secondary-color-dark)'};
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  svg {
+    margin-left: 0.75rem;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
@@ -391,29 +461,30 @@ const ProjectDetailModal = ({ project, isOpen, onClose, isLight }) => {
                 <HeaderContent>
                   <ModalCategory>{project.category}</ModalCategory>
                   <ModalTitle isLight={isLight}>{project.title}</ModalTitle>
-                  <ProjectDescription>{project.description}</ProjectDescription>
+
+                  <ProjectImageContainer isLight={isLight}>
+                    <ProjectImage
+                      src={project.imageUrl}
+                      alt={project.title}
+                      isLight={isLight}
+                      onError={(e) => {
+                        // Try the corrected path with leading slash
+                        if (project.id === 'peopleview') {
+                          e.target.src = "/assets/images/eudolab.png";
+                        } else if (project.id === 'efilmhub') {
+                          e.target.src = "/assets/images/efilmhub.png";
+                        } else if (project.id === 'ai-data-analyzer') {
+                          e.target.src = "/assets/images/STG.png";
+                        } else {
+                          // If all else fails, use a fallback icon
+                          e.target.src = "https://cdn-icons-png.flaticon.com/512/1356/1356479.png";
+                        }
+                      }}
+                    />
+                  </ProjectImageContainer>
+
+                  <ProjectDescription isLight={isLight}>{project.description}</ProjectDescription>
                 </HeaderContent>
-                
-                <ProjectImageContainer isLight={isLight}>
-                  <ProjectImage 
-                    src={project.imageUrl} 
-                    alt={project.title}
-                    isLight={isLight}
-                    onError={(e) => {
-                      // Try the corrected path with leading slash
-                      if (project.id === 'peopleview') {
-                        e.target.src = "/assets/images/Eudo.png";
-                      } else if (project.id === 'efilmhub') {
-                        e.target.src = "/assets/images/efilmhub.png";
-                      } else if (project.id === 'ai-data-analyzer') {
-                        e.target.src = "/assets/images/STG.png";
-                      } else {
-                        // If all else fails, use a fallback icon
-                        e.target.src = "https://cdn-icons-png.flaticon.com/512/1356/1356479.png";
-                      }
-                    }}
-                  />
-                </ProjectImageContainer>
               </HeaderLayout>
             </ModalHeader>
             
@@ -447,9 +518,21 @@ const ProjectDetailModal = ({ project, isOpen, onClose, isLight }) => {
             </ModalBody>
             
             <ModalFooter isLight={isLight}>
-              <ContactButton onClick={handleContactClick}>
-                <FaEnvelope /> Contact for More Information
-              </ContactButton>
+              <ButtonGroup>
+                {project.projectUrl && (
+                  <ProjectLink
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    isLight={isLight}
+                  >
+                    Visit Project <FaExternalLinkAlt />
+                  </ProjectLink>
+                )}
+                <ContactButton onClick={handleContactClick}>
+                  <FaEnvelope /> Contact for More Information
+                </ContactButton>
+              </ButtonGroup>
             </ModalFooter>
           </ModalContent>
         </ModalOverlay>

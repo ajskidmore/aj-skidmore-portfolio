@@ -139,6 +139,7 @@ const Header = () => {
               <MobileMenuButton 
                 onClick={toggleMobileMenu} 
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
                 isLight={isLight}
               >
                 {mobileMenuOpen ? <FiX /> : <FiMenu />}

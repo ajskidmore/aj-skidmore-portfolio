@@ -1,15 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaCode, FaDesktop, FaMobileAlt, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
+import { FaCode, FaDesktop, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import ThemeBackground from '../theme/ThemeBackground';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import useTypewriter from '../../hooks/useTypewriter';
+import { featuredProjects, ROLE } from '../../data/projects';
 
 // Wrap the section with ThemeBackground
 const StyledAboutSection = styled(ThemeBackground)`
   padding: 7rem 0;
   position: relative;
   overflow: hidden;
+
+  @keyframes blink {
+    0%, 50% {
+      border-color: transparent;
+    }
+    50%, 100% {
+      border-color: currentColor;
+    }
+  }
 `;
 
 const SectionHeader = styled.div`
@@ -17,7 +28,7 @@ const SectionHeader = styled.div`
   margin-bottom: 3rem;
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h1`
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -116,7 +127,7 @@ const Experience = styled.div`
   position: absolute;
   bottom: 30px;
   left: 30px;
-  background: var(--primary-color);
+  background: var(--primary-fill);
   color: white;
   padding: 1rem;
   border-radius: var(--border-radius);
@@ -145,7 +156,7 @@ const AboutContent = styled(motion.div)`
   flex-direction: column;
 `;
 
-const AboutTitle = styled.h3`
+const AboutTitle = styled.h2`
   margin-bottom: 1.5rem;
   font-size: 2rem;
   position: relative;
@@ -194,7 +205,7 @@ const FocusAreaIcon = styled.div`
   margin-bottom: 1rem;
 `;
 
-const FocusAreaTitle = styled.h4`
+const FocusAreaTitle = styled.h3`
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -211,7 +222,7 @@ const ExperienceSection = styled(motion.div)`
   margin-top: 4rem;
 `;
 
-const ExperienceTitle = styled.h3`
+const ExperienceTitle = styled.h2`
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
   color: var(--secondary-color);
@@ -262,7 +273,7 @@ const TimelineItem = styled(motion.div)`
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-fill);
   }
 `;
 
@@ -276,13 +287,13 @@ const TimelinePeriod = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const TimelineTitle = styled.h4`
+const TimelineTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.25rem;
   color: var(--secondary-color);
 `;
 
-const TimelineSubtitle = styled.h5`
+const TimelineSubtitle = styled.p`
   font-size: 1rem;
   margin-bottom: 0.5rem;
   color: var(--primary-color);
@@ -295,12 +306,44 @@ const TimelineText = styled.p`
   line-height: 1.6;
 `;
 
+const ProjectLink = styled.span`
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const CaseStudyLink = styled(Link)`
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--accent-color);
+  }
+`;
+
+const TimelineNote = styled.p`
+  font-size: 0.78rem;
+  color: var(--text-color);
+  opacity: 0.85;
+  margin-top: 0.75rem;
+  font-style: italic;
+`;
+
 const DecorativeCircle = styled.div`
   position: absolute;
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  background: linear-gradient(to right, var(--primary-fill), var(--accent-fill));
   opacity: 0.03;
   z-index: 0;
   
@@ -332,12 +375,13 @@ const fadeInUp = {
 };
 
 const About = () => {
-  const { isLight } = useContext(ThemeContext);
-  
+  // Types once and stops (no endless motion, WCAG 2.2.2)
+  const displayedTitle = useTypewriter(['Full-Stack Engineer & UX Designer'], { loop: false });
+
   return (
     <StyledAboutSection id="about">
-      <DecorativeCircle className="top-left" />
-      <DecorativeCircle className="bottom-right" />
+      <DecorativeCircle className="top-left" aria-hidden="true" />
+      <DecorativeCircle className="bottom-right" aria-hidden="true" />
       
       <div className="container">
         <SectionHeader>
@@ -361,15 +405,15 @@ const About = () => {
           >
             <AboutImage>
               <img 
-                src="assets/images/A.J. Skidmore Headshot.jpg" 
-                alt="AJ Skidmore" 
+                src="/assets/images/A.J. Skidmore Headshot.jpg" 
+                alt="A.J. Skidmore" 
                 onError={(e) => {
                   e.target.src = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"; // Modern professional avatar
                 }}
               />
             </AboutImage>
             <Experience>
-              <span className="years">3+</span>
+              <span className="years">4+</span>
               <span className="text">Years Exp</span>
             </Experience>
           </AboutImageWrapper>
@@ -381,25 +425,16 @@ const About = () => {
             variants={fadeInRight}
           >
             <AboutTitle>
-              Software & UX<span> Engineer</span>
+              <span className="visually-hidden">Full-Stack Engineer and UX Designer</span>
+              <span aria-hidden="true">{displayedTitle}</span>
             </AboutTitle>
-            
-            <AboutText>
-              I'm a full-stack software engineer with <HightlightText>3+ years of experience</HightlightText> building 
-              scalable web applications and user-centric interfaces. I specialize in React, Node.js, LAMP stack, 
-              and cloud platforms with a proven track record of delivering  
-              <HightlightText> 300+ public-facing projects</HightlightText> across healthcare, government, education, and retail sectors.
-            </AboutText>
-            
-            <AboutText>
-              What sets me apart is my unique background in <HightlightText>Experience Architecture </HightlightText> 
-               from Michigan State University, combining UX design, user research, and technical development. This 
-              interdisciplinary foundation allows me to <HightlightText>bridge the gap between design and 
-              development</HightlightText>, ensuring applications are both technically robust and user-friendly. I was trained in Web Development and UX Design early in my career. They remain strong focus areas.
-            </AboutText>
-            
 
-            
+            <AboutText>
+              I'm a <HightlightText>full-stack engineer and UX designer</HightlightText> with a degree in <HightlightText>Experience Architecture</HightlightText> from Michigan State University, an interdisciplinary major combining UX &amp; UI design, user research and web development. Over <HightlightText>4+ years</HightlightText> I've delivered <HightlightText>70+ production sites and applications</HightlightText> for clients from small businesses to government, including recurring <HightlightText>WCAG accessibility audits</HightlightText>.
+            </AboutText>
+            <AboutText>
+              Because I both design and build, I can take a product from <HightlightText>user research, wireframes and prototypes</HightlightText> through a design system to production code, and make sure the final product matches the design and stays accessible.
+            </AboutText>
             <FocusAreas>
               <FocusArea
                 initial="hidden"
@@ -408,15 +443,16 @@ const About = () => {
                 variants={fadeInUp}
                 transition={{ delay: 0.1 }}
               >
-                <FocusAreaIcon>
-                  <FaCode />
+                <FocusAreaIcon aria-hidden="true">
+                  <FaDesktop />
                 </FocusAreaIcon>
-                <FocusAreaTitle>Web Development</FocusAreaTitle>
+                <FocusAreaTitle>UI/UX Design</FocusAreaTitle>
                 <FocusAreaText>
-                  Building responsive, performant web applications with modern frameworks and best practices.
+                  Grounded in formal Experience Architecture training: user research and usability testing, wireframes and prototypes in Figma, design systems, and WCAG accessibility audits.
                 </FocusAreaText>
               </FocusArea>
-              
+
+
               <FocusArea
                 initial="hidden"
                 whileInView="visible"
@@ -424,16 +460,15 @@ const About = () => {
                 variants={fadeInUp}
                 transition={{ delay: 0.2 }}
               >
-                <FocusAreaIcon>
-                  <FaDesktop />
+                <FocusAreaIcon aria-hidden="true">
+                  <FaCode />
                 </FocusAreaIcon>
-                <FocusAreaTitle>UX Design</FocusAreaTitle>
+                <FocusAreaTitle>Web Development</FocusAreaTitle>
                 <FocusAreaText>
-                  Creating intuitive interfaces with a focus on user experience, accessibility, and design systems.
+                  From WordPress and PHP for client sites to React, TypeScript, and Node.js for modern applications — delivering production sites for clients ranging from small businesses to government municipalities.
                 </FocusAreaText>
               </FocusArea>
-              
-              
+
             </FocusAreas>
           </AboutContent>
         </AboutGrid>
@@ -446,7 +481,7 @@ const About = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           <ExperienceTitle>
-            <FocusAreaIcon style={{ display: 'inline-block', marginRight: '10px', fontSize: '1.5rem' }}>
+            <FocusAreaIcon aria-hidden="true" style={{ display: 'inline-block', marginRight: '10px', fontSize: '1.5rem' }}>
               <FaBriefcase />
             </FocusAreaIcon>
             Work Experience
@@ -459,92 +494,72 @@ const About = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true, amount: 0.1 }}
             >
-              <TimelinePeriod>October 2024 - Present</TimelinePeriod>
-              <TimelineTitle>Software Engineer, Co-founder</TimelineTitle>
-              <TimelineSubtitle>Eudo • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
+              <TimelinePeriod>August 2022 - Present</TimelinePeriod>
+              <TimelineTitle>Full-Stack Engineer<sup style={{ fontSize: '0.7em', verticalAlign: 'super' }}>*</sup></TimelineTitle>
+              <TimelineSubtitle>Shumaker Technology Group • Remote • Full-Time</TimelineSubtitle>
               <TimelineText>
-                • Architected HR analytics dashboard using React, Node.js, and Azure, implementing proprietary framework 
-                to measure employee satisfaction and predict turnover risk
+                • Collaborate with and provide technical direction to a team of 5 developers across concurrent client projects, conducting code reviews and QA on production deliverables.
               </TimelineText>
               <TimelineText>
-                • Built interactive data visualization components in React, transforming complex HR metrics into 
-                actionable insights for management decision-making
+                • Manage 350+ WordPress sites across the private and public sectors, including coordinating a fleet-wide response to a critical Elementor Pro security vulnerability (CVSS 9.0).
               </TimelineText>
               <TimelineText>
-                • Designed full-stack architecture connecting real-time frontend interfaces with robust backend 
-                data processing systems
-              </TimelineText>
-            </TimelineItem>
-            
-            <TimelineItem
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <TimelinePeriod>January 2024 - Present</TimelinePeriod>
-              <TimelineTitle>UX Engineer</TimelineTitle>
-              <TimelineSubtitle>Shumaker Technology Group • Salt Lake City, UT (Remote) • Full-Time</TimelineSubtitle>
-              <TimelineText>
-                • Designed and developed user-centric interfaces for 50+ client websites serving thousands of monthly 
-                users across healthcare, government, education, and retail
+                • Serve as the primary technical escalation point for complex legacy codebases, including a large-scale e-commerce platform with thousands of SKUs and heavily customized code inherited from a prior development team.
               </TimelineText>
               <TimelineText>
-                • Collaborated with cross-functional teams in agile environment to deliver accessible, engaging web 
-                solutions meeting client requirements and business objectives
+                • Built an enterprise e-commerce platform integrating Salesforce CRM and Stripe payment processing for a software company with $1M+ in funding, and developed the ongoing functionality in the application for renewal invoicing and billing.
               </TimelineText>
               <TimelineText>
-                • Applied UX principles and accessibility standards to ensure optimal user experience and compliance
-              </TimelineText>
-            </TimelineItem>
-
-            <TimelineItem
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <TimelinePeriod>July 2024 - August 2025</TimelinePeriod>
-              <TimelineTitle>Software Engineer</TimelineTitle>
-              <TimelineSubtitle>eFilmHub • Salt Lake City, UT (Remote) • Part-Time</TimelineSubtitle>
-              <TimelineText>
-                • Developed comprehensive film industry social platform combining IMDb and Backstage functionality 
-                using React, Node.js, and Google Cloud Services
+                • Conduct recurring ADA and WCAG 2.1 AA audits and remediation for municipal client sites.
               </TimelineText>
               <TimelineText>
-                • Engineered responsive frontend components for talent discovery and industry networking, 
-                optimizing user experience across devices
+                • Delivered 70+ production sites and applications for clients, including municipalities with 25,000+ residents, while managing server administration for client infrastructure.
               </TimelineText>
-              <TimelineText>
-                • Implemented scalable cloud architecture with GCP Cloud Storage and Real-time Database 
-                to support user growth
-              </TimelineText>
-            </TimelineItem>
-            
-            <TimelineItem
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <TimelinePeriod>August 2022 - January 2024</TimelinePeriod>
-              <TimelineTitle>Web Developer</TimelineTitle>
-              <TimelineSubtitle>Shumaker Technology Group • Lansing, MI • Part-Time</TimelineSubtitle>
-              <TimelineText>
-                • Developed and deployed responsive websites using HTML5, CSS3, JavaScript, and modern frameworks, 
-                creating engaging user experiences for diverse client base
-              </TimelineText>
-              <TimelineText>
-                • Optimized complex web applications using PHP and SQL for platforms serving 5,000+ active users
-              </TimelineText>
-              <TimelineText>
-                • Maintained and enhanced 300+ public web projects through security patches, updates, 
-                and performance optimizations
-              </TimelineText>
+              <TimelineNote>* Web Developer → Full-Stack Engineer → Lead Full-Stack Engineer</TimelineNote>
             </TimelineItem>
           </TimelineContainer>
         </ExperienceSection>
-        
+
+        {/* Featured Projects Section */}
+        <ExperienceSection
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <ExperienceTitle>
+            <FocusAreaIcon aria-hidden="true" style={{ display: 'inline-block', marginRight: '10px', fontSize: '1.5rem' }}>
+              <FaBriefcase />
+            </FocusAreaIcon>
+            Featured Projects
+          </ExperienceTitle>
+
+          <TimelineContainer>
+            {featuredProjects.map((project, index) => (
+              <TimelineItem
+                key={project.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                viewport={{ once: true, amount: 0.1 }}
+              >
+                <TimelineTitle>
+                  <ProjectLink as={Link} to={`/projects/${project.id}`}>
+                    {project.name}
+                  </ProjectLink>
+                </TimelineTitle>
+                <TimelineSubtitle>{ROLE}</TimelineSubtitle>
+                <TimelineText>{project.summary}</TimelineText>
+                <TimelineText>
+                  <CaseStudyLink to={`/projects/${project.id}`}>
+                    View project<span className="visually-hidden">: {project.name}</span>
+                  </CaseStudyLink>
+                </TimelineText>
+              </TimelineItem>
+            ))}
+          </TimelineContainer>
+        </ExperienceSection>
+
         {/* Education Section */}
         <ExperienceSection
           initial={{ opacity: 0, y: 30 }}
@@ -553,7 +568,7 @@ const About = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           <ExperienceTitle>
-            <FocusAreaIcon style={{ display: 'inline-block', marginRight: '10px', fontSize: '1.5rem' }}>
+            <FocusAreaIcon aria-hidden="true" style={{ display: 'inline-block', marginRight: '10px', fontSize: '1.5rem' }}>
               <FaGraduationCap />
             </FocusAreaIcon>
             Education
