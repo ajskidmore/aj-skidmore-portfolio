@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { FaChevronRight } from 'react-icons/fa';
 import ThemeBackground from '../theme/ThemeBackground';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { featuredProjects, ROLE } from '../../data/projects';
+import { featuredProjects } from '../../data/projects';
 
 const StyledProjectsSection = styled(ThemeBackground)`
   padding: 7rem 0;
@@ -93,18 +93,15 @@ const ProjectImage = styled.img`
 `;
 
 const ProjectOverlay = styled.div`
+  /* Light shade only, so the project screenshots keep their real colors */
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-  opacity: 0.7;
-  transition: opacity 0.5s ease;
-  
-  ${ProjectCard}:hover & {
-    opacity: 0.9;
-  }
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.08) 100%);
+  border-bottom: 1px solid var(--border-color);
+  pointer-events: none;
 `;
 
 const ProjectContent = styled.div`
@@ -134,13 +131,6 @@ const ProjectTitle = styled.h2`
   ${ProjectCard}:hover & {
     color: var(--primary-color);
   }
-`;
-
-const ProjectRole = styled.p`
-  margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--secondary-color);
 `;
 
 const ProjectSummary = styled.p`
@@ -288,7 +278,6 @@ const Projects = () => {
                     <ProjectContent>
                       <ProjectCategory>{project.category}</ProjectCategory>
                       <ProjectTitle>{project.name}</ProjectTitle>
-                      <ProjectRole>Role: {ROLE}</ProjectRole>
                       <ProjectSummary>{project.summary}</ProjectSummary>
                       <ProjectTags aria-label={`Tools used for ${project.name}`}>
                         {project.tools.slice(0, 4).map((tool) => (

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FaCode, FaDesktop, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import ThemeBackground from '../theme/ThemeBackground';
 import useTypewriter from '../../hooks/useTypewriter';
-import { featuredProjects, ROLE } from '../../data/projects';
+import { featuredProjects } from '../../data/projects';
 
 // Wrap the section with ThemeBackground
 const StyledAboutSection = styled(ThemeBackground)`
@@ -548,7 +548,6 @@ const About = () => {
                     {project.name}
                   </ProjectLink>
                 </TimelineTitle>
-                <TimelineSubtitle>{ROLE}</TimelineSubtitle>
                 <TimelineText>{project.summary}</TimelineText>
                 <TimelineText>
                   <CaseStudyLink to={`/projects/${project.id}`}>
