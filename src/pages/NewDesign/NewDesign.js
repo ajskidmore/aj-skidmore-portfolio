@@ -31,6 +31,11 @@ const DOMAINS = {
   bloom: 'bloom-wellness-28cww.web.app',
 };
 
+// Screenshots used only on this page (the current site keeps its own files)
+const IMAGE_OVERRIDES = {
+  travelcare: '/assets/images/new-design/travelcare.png',
+};
+
 const TOOLKIT = [
   'Figma', 'Framer', 'Adobe CC', 'User research', 'Usability testing', 'Design systems',
   'React', 'TypeScript', 'Next.js', 'Node.js', 'Firebase', 'WordPress / PHP', 'NVDA', 'axe',
@@ -103,6 +108,10 @@ const NewDesign = () => {
     const previousTitle = document.title;
     document.title = 'A.J. Skidmore | UX Designer & Full-Stack Engineer';
     document.body.classList.add('nd-body');
+    // Preview the new favicon on this page only; restored when leaving
+    const icon = document.querySelector('link[rel="icon"]');
+    const previousIcon = icon && icon.getAttribute('href');
+    if (icon) icon.setAttribute('href', '/assets/images/brand/aj-favicon.svg');
     window.scrollTo(0, 0);
 
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -114,6 +123,7 @@ const NewDesign = () => {
       robots.remove();
       document.title = previousTitle;
       document.body.classList.remove('nd-body');
+      if (icon && previousIcon) icon.setAttribute('href', previousIcon);
       mq.removeEventListener('change', onChange);
     };
   }, []);
@@ -128,7 +138,7 @@ const NewDesign = () => {
       <header className="nd-bar">
         <div className="nd-wrap nd-bar__inner">
           <a className="nd-brand" href="#top" aria-label="A.J. Skidmore, back to top">
-            <AJMark size={34} />
+            <AJMark size={40} />
             <span>A.J. Skidmore</span>
           </a>
           <nav className="nd-nav" aria-label="Main">
@@ -239,7 +249,7 @@ const NewDesign = () => {
                           <i /><i /><i />
                           <span>{DOMAINS[p.id]}</span>
                         </div>
-                        <img src={p.imageUrl} alt="" loading="lazy" width="1440" height="720" />
+                        <img src={IMAGE_OVERRIDES[p.id] || p.imageUrl} alt="" loading="lazy" width="1440" height="720" />
                       </div>
                     </div>
                   </div>
@@ -388,7 +398,7 @@ const NewDesign = () => {
       <footer className="nd-foot">
         <div className="nd-wrap nd-foot__inner">
           <p className="nd-foot__brand">
-            <AJMark size={26} tile={false} color="#0a1020" />
+            <AJMark size={28} />
             &copy; {new Date().getFullYear()} A.J. Skidmore. Designed and built by me.
           </p>
           <p><Link to="/">View the current site</Link></p>

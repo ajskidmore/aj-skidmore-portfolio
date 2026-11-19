@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#0a1020;font-family:Geist,system-ui;-webkit-font-smoothing:antialiased}
+.wrap{width:1600px;padding:48px 56px}
+.mono{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5b677a}
+.row{display:grid;grid-template-columns:120px 360px 520px 1fr;gap:20px;align-items:center;padding:22px 0;border-top:1px solid rgba(10,16,32,.1)}
+.big{height:200px;border:1px solid rgba(10,16,32,.1);border-radius:20px;display:grid;place-items:center;background:#fff;position:relative;overflow:hidden}
+.bar{height:68px;border:1px solid rgba(10,16,32,.1);border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 18px;font-weight:600;letter-spacing:-.01em;font-size:16px}
+.fav{display:flex;gap:14px;align-items:center}
+.tab{display:flex;align-items:center;gap:8px;background:#e8ebf0;border-radius:10px 10px 0 0;padding:8px 14px;font-size:12px;color:#3c4a5f}
+.dark{background:#0a1020}
+h3{margin:0 0 4px;font-size:20px;letter-spacing:-.02em}p.d{margin:0;color:#3c4a5f;font-size:14px;line-height:1.45}
+.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.gradtext{background:linear-gradient(100deg,#4338ca,#1d4ed8 35%,#7c3aed 70%,#be185d);-webkit-background-clip:text;color:transparent}
+/* ribbon tile */
+.rtile{border-radius:24%;background:
+ radial-gradient(60% 70% at 15% 15%, #a5b4fc 0%, transparent 60%),
+ radial-gradient(55% 65% at 85% 30%, #f9a8d4 0%, transparent 60%),
+ radial-gradient(60% 60% at 70% 95%, #fdba74 0%, transparent 60%),
+ radial-gradient(60% 60% at 10% 90%, #67e8f9 0%, transparent 60%),
+ linear-gradient(135deg,#6366f1,#3b82f6 40%,#a78bfa 75%,#f472b6);
+ display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}
+.rtile::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.35),transparent 40%);}
+.rtile span{position:relative;z-index:1;font-family:'Instrument Serif',serif;font-style:italic;line-height:1;letter-spacing:-.02em;text-shadow:0 1px 8px rgba(10,16,32,.18)}
+/* blueprint stamp */
+.stamp{position:relative;display:grid;place-items:center;border:1px solid #0a1020;font-family:Geist;font-weight:500;letter-spacing:.02em}
+.stamp i{position:absolute;width:6px;height:6px;border-color:#1d4ed8;border-style:solid}
+</style></head><body><div class="wrap">
+<p class="mono">Logo directions · v2 · for the Blueprint design</p>
+
+<!-- A: serif monogram -->
+<div class="row"><div><p class="mono">A</p><h3>Serif monogram</h3><p class="d">“aj” in the same serif italic as the headline accents, with the headline gradient. Editorial, warm, quietly confident.</p></div>
+<div class="big"><span class="serif gradtext" style="font-size:150px;line-height:1;padding:0 10px">aj</span></div>
+<div class="bar"><span class="serif gradtext" style="font-size:34px;line-height:1">aj</span><span style="margin-left:4px">A.J. Skidmore</span></div>
+<div class="fav"><div class="tab"><span class="serif gradtext" style="font-size:18px;line-height:1">aj</span>A.J. Skidmore</div><span class="serif gradtext" style="font-size:32px">aj</span></div></div>
+
+<!-- B: ribbon tile -->
+<div class="row"><div><p class="mono">B</p><h3>Ribbon tile</h3><p class="d">A soft tile of the hero’s silk-ribbon colors with a white serif “aj”. Ties the logo directly to the hero; strongest as a favicon.</p></div>
+<div class="big"><div class="rtile" style="width:150px;height:150px"><span style="font-size:96px">aj</span></div></div>
+<div class="bar"><div class="rtile" style="width:34px;height:34px"><span style="font-size:23px">aj</span></div>A.J. Skidmore</div>
+<div class="fav"><div class="tab"><div class="rtile" style="width:16px;height:16px"><span style="font-size:11px">aj</span></div>A.J. Skidmore</div><div class="rtile" style="width:32px;height:32px"><span style="font-size:21px">aj</span></div></div></div>
+
+<!-- C: blueprint stamp -->
+<div class="row"><div><p class="mono">C</p><h3>Blueprint stamp</h3><p class="d">A hairline square with blue crop marks, like a drafting title block, with “AJ” set in Geist. Architectural and precise.</p></div>
+<div class="big"><div class="stamp" style="width:150px;height:150px;font-size:56px"><i style="top:-7px;left:-7px;border-width:0 1px 1px 0;width:14px;height:14px"></i><i style="top:-7px;right:-7px;border-width:0 0 1px 1px;width:14px;height:14px"></i><i style="bottom:-7px;left:-7px;border-width:1px 1px 0 0;width:14px;height:14px"></i><i style="bottom:-7px;right:-7px;border-width:1px 0 0 1px;width:14px;height:14px"></i>AJ<span style="position:absolute;bottom:10px;right:12px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#22d3ee,#f472b6)"></span></div></div>
+<div class="bar"><div class="stamp" style="width:32px;height:32px;font-size:13px">AJ</div>A.J. Skidmore</div>
+<div class="fav"><div class="tab"><div class="stamp" style="width:16px;height:16px;font-size:7px">AJ</div>A.J. Skidmore</div><div class="stamp" style="width:32px;height:32px;font-size:13px">AJ</div></div></div>
+
+<!-- D: continuous line, refined -->
+<div class="row"><div><p class="mono">D</p><h3>Continuous line, refined</h3><p class="d">The same one-stroke AJ idea, redrawn as a fine gradient line with no tile. Keeps the concept, loses the weight.</p></div>
+<div class="big"><svg viewBox="9 13 44 38" width="190" aria-hidden="true"><defs><linearGradient id="dg" gradientUnits="userSpaceOnUse" x1="12" y1="48" x2="50" y2="16"><stop offset="0" stop-color="#4338ca"/><stop offset=".45" stop-color="#2563eb"/><stop offset=".75" stop-color="#7c3aed"/><stop offset="1" stop-color="#db2777"/></linearGradient></defs><path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42 M27 16 L33.5 30 M20.6 35 H31" fill="none" stroke="url(#dg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="bar"><svg viewBox="9 13 44 38" width="38" aria-hidden="true"><defs><linearGradient id="dg2" gradientUnits="userSpaceOnUse" x1="12" y1="48" x2="50" y2="16"><stop offset="0" stop-color="#4338ca"/><stop offset=".45" stop-color="#2563eb"/><stop offset=".75" stop-color="#7c3aed"/><stop offset="1" stop-color="#db2777"/></linearGradient></defs><path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42 M27 16 L33.5 30 M20.6 35 H31" fill="none" stroke="url(#dg2)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>A.J. Skidmore</div>
+<div class="fav"><div class="tab"><svg viewBox="9 13 44 38" width="18" aria-hidden="true"><path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42 M27 16 L33.5 30 M20.6 35 H31" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>A.J. Skidmore</div></div></div>
+
+<!-- E: wordmark -->
+<div class="row"><div><p class="mono">E</p><h3>Wordmark</h3><p class="d">No symbol: “A.J. Skidmore” in Geist with the dots as tiny ribbon-gradient circles. Stripe-style restraint; the hero does the talking.</p></div>
+<div class="big"><span style="font-size:52px;font-weight:600;letter-spacing:-.035em">A<b style="display:inline-block;width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#22d3ee);margin:0 2px 0 3px"></b>J<b style="display:inline-block;width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#f472b6);margin:0 12px 0 3px"></b>Skidmore</span></div>
+<div class="bar"><span style="font-size:19px;font-weight:600;letter-spacing:-.03em">A<b style="display:inline-block;width:5px;height:5px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#22d3ee);margin:0 1px 0 1.5px"></b>J<b style="display:inline-block;width:5px;height:5px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#f472b6);margin:0 6px 0 1.5px"></b>Skidmore</span></div>
+<div class="fav"><p class="d">Favicon would use B or A as the small symbol.</p></div></div>
+</div></body></html>

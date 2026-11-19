@@ -1,6 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="A.J. Skidmore">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="9 13 44 38" width="176" height="152" role="img" aria-label="A.J. Skidmore">
   <title>A.J. Skidmore</title>
-  <defs><linearGradient id="aj-bar" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="50" y2="0"><stop offset="0" stop-color="#818cf8"/><stop offset=".3" stop-color="#3b82f6"/><stop offset=".55" stop-color="#22d3ee"/><stop offset=".8" stop-color="#c084fc"/><stop offset="1" stop-color="#fda4af"/></linearGradient></defs>
-  <rect width="64" height="64" rx="16" fill="#0a1020"/>
-  <path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 16 L33.5 30" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/><path d="M20.6 35 H31" stroke="url(#aj-bar)" stroke-width="5" stroke-linecap="round"/>
+  <!-- "One continuous stroke", refined: the A's left leg rises to the apex and runs
+       straight into the J's top bar. One fine gradient line. For light backgrounds, 64px and up. -->
+  <defs>
+    <linearGradient id="aj-line" gradientUnits="userSpaceOnUse" x1="12" y1="48" x2="50" y2="16">
+      <stop offset="0" stop-color="#4338ca"/><stop offset=".45" stop-color="#2563eb"/><stop offset=".75" stop-color="#7c3aed"/><stop offset="1" stop-color="#db2777"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42 M27 16 L33.5 30 M20.6 35 H31" fill="none" stroke="url(#aj-line)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

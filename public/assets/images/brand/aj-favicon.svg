@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6.5 8 49 49" width="32" height="32" role="img" aria-label="A.J. Skidmore">
+  <title>A.J. Skidmore</title>
+  <!-- "One continuous stroke", refined: the A's left leg rises to the apex and runs
+       straight into the J's top bar. One fine gradient line. Favicon: heaviest line, square frame. -->
+  <defs>
+    <linearGradient id="aj-line" gradientUnits="userSpaceOnUse" x1="12" y1="48" x2="50" y2="16">
+      <stop offset="0" stop-color="#4338ca"/><stop offset=".45" stop-color="#2563eb"/><stop offset=".75" stop-color="#7c3aed"/><stop offset="1" stop-color="#db2777"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 48 L27 16 H50 M45 16 V39.5 A8.5 8.5 0 0 1 28.5 42 M27 16 L33.5 30 M20.6 35 H31" fill="none" stroke="url(#aj-line)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
