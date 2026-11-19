@@ -27,7 +27,7 @@ const conversationHistories = new Map();
 
 // Initialize LangChain ChatAnthropic model
 const initializeChatModel = () => {
-  const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
     throw new Error('Anthropic API key not configured');
@@ -76,12 +76,12 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Message is required' });
   }
 
-  const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
       error: 'Anthropic API key not configured',
-      message: 'Please add REACT_APP_ANTHROPIC_API_KEY to your .env file'
+      message: 'Please add ANTHROPIC_API_KEY to your .env file (server-side only; never use a REACT_APP_ name)'
     });
   }
 

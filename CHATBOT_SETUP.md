@@ -32,10 +32,11 @@ Your portfolio now includes:
    cp .env.example .env
    ```
 
-2. Open `.env` and add your API key:
+2. Add your API key **server-side only** (`functions/.env` for Firebase Functions, or `.env` for the local `proxy-server.js`):
    ```
-   REACT_APP_ANTHROPIC_API_KEY=sk-ant-api03-your-actual-key-here
+   ANTHROPIC_API_KEY=your-key-here
    ```
+   Never name it `REACT_APP_...`: Create React App copies every `REACT_APP_*` variable into the public JavaScript bundle.
 
 3. **Important:** Make sure `.env` is in your `.gitignore` (it already should be)
 
@@ -101,8 +102,8 @@ In `src/utils/chatAPI.js`, you can change the model:
 - `claude-3-haiku-20240307` (Fastest, lowest cost)
 
 **Or Switch to OpenAI:**
-1. Uncomment the OpenAI option in `sendChatMessage` function
-2. Add `REACT_APP_OPENAI_API_KEY` to your `.env`
+Change the model in the backend (`functions/index.js` / `proxy-server.js`) and keep its key server-side.
+The browser-side OpenAI/Claude helpers were removed because any `REACT_APP_*` key ends up in the public bundle.
 
 ## 🔒 Security Best Practices
 
@@ -206,7 +207,7 @@ gtag('event', 'chatbot_message', {
 
 ### "API key not configured" error
 - Verify `.env` file exists in project root
-- Check the key name is exactly `REACT_APP_ANTHROPIC_API_KEY`
+- Check the key name is exactly `ANTHROPIC_API_KEY` (server-side, never `REACT_APP_`)
 - Restart your dev server after adding the key
 
 ### Responses are slow
