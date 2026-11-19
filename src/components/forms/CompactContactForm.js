@@ -43,9 +43,9 @@ const InputIcon = styled.div`
 const Input = styled.input`
   width: 100%;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-  border: 2px solid ${props => props.isLight ? '#e5e7eb' : '#374151'};
+  border: 2px solid ${props => props.$isLight ? '#e5e7eb' : '#374151'};
   border-radius: var(--border-radius);
-  background-color: ${props => props.isLight ? '#ffffff' : 'var(--card-bg-dark, #2a2a2a)'};
+  background-color: ${props => props.$isLight ? '#ffffff' : 'var(--card-bg-dark, #2a2a2a)'};
   color: var(--text-color);
   font-size: 0.9rem;
   transition: all 0.3s ease;
@@ -65,9 +65,9 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   width: 100%;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-  border: 2px solid ${props => props.isLight ? '#e5e7eb' : '#374151'};
+  border: 2px solid ${props => props.$isLight ? '#e5e7eb' : '#374151'};
   border-radius: var(--border-radius);
-  background-color: ${props => props.isLight ? '#ffffff' : 'var(--card-bg-dark, #2a2a2a)'};
+  background-color: ${props => props.$isLight ? '#ffffff' : 'var(--card-bg-dark, #2a2a2a)'};
   color: var(--text-color);
   font-size: 0.9rem;
   min-height: 100px;
@@ -164,9 +164,12 @@ const CompactContactForm = () => {
     setSubmitStatus(null);
 
     try {
+      // Must match the fields allowed by firestore.rules (isValidSubmission)
       await addDoc(collection(db, 'contactSubmissions'), {
-        ...formData,
-        phone: '', // No phone field in compact form
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
         timestamp: serverTimestamp(),
         read: false
       });
@@ -192,34 +195,42 @@ const CompactContactForm = () => {
         <FormRow>
           <FormGroup>
             <InputContainer>
-              <InputIcon>
+              <InputIcon aria-hidden="true">
                 <FaUser />
               </InputIcon>
+              <label htmlFor="contact-name" className="visually-hidden">Name</label>
               <Input
                 type="text"
                 name="name"
+                id="contact-name"
+                maxLength={200}
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your name"
                 required
-                isLight={isLight}
+                $isLight={isLight}
               />
             </InputContainer>
           </FormGroup>
           
           <FormGroup>
             <InputContainer>
-              <InputIcon>
+              <InputIcon aria-hidden="true">
                 <FaEnvelope />
               </InputIcon>
+              <label htmlFor="contact-email" className="visually-hidden">Email</label>
               <Input
                 type="email"
                 name="email"
+                id="contact-email"
+                maxLength={320}
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
                 required
-                isLight={isLight}
+                $isLight={isLight}
               />
             </InputContainer>
           </FormGroup>
@@ -227,33 +238,39 @@ const CompactContactForm = () => {
         
         <FormGroup>
           <InputContainer>
-            <InputIcon>
+            <InputIcon aria-hidden="true">
               <FaEnvelope />
             </InputIcon>
+            <label htmlFor="contact-subject" className="visually-hidden">Subject</label>
             <Input
               type="text"
               name="subject"
+              id="contact-subject"
+              maxLength={200}
               value={formData.subject}
               onChange={handleChange}
               placeholder="Subject"
               required
-              isLight={isLight}
+              $isLight={isLight}
             />
           </InputContainer>
         </FormGroup>
         
         <FormGroup>
           <InputContainer>
-            <InputIcon style={{ top: '1rem' }}>
+            <InputIcon aria-hidden="true" style={{ top: '1rem' }}>
               <FaPaperPlane />
             </InputIcon>
+            <label htmlFor="contact-message" className="visually-hidden">Message</label>
             <TextArea
               name="message"
+              id="contact-message"
+              maxLength={5000}
               value={formData.message}
               onChange={handleChange}
               placeholder="Your message..."
               required
-              isLight={isLight}
+              $isLight={isLight}
             />
           </InputContainer>
         </FormGroup>
@@ -263,25 +280,28 @@ const CompactContactForm = () => {
             'Sending...'
           ) : (
             <>
-              <FaPaperPlane />
+              <FaPaperPlane aria-hidden="true" />
               Send Message
             </>
           )}
         </SubmitButton>
       </Form>
       
-      {submitStatus === 'success' && (
-        <SuccessMessage>
-          <FaCheck />
-          Message sent successfully!
-        </SuccessMessage>
-      )}
-      
-      {submitStatus === 'error' && (
-        <ErrorMessage>
-          Sorry, there was an error. Please try again.
-        </ErrorMessage>
-      )}
+      {/* Announced to screen readers when the status changes */}
+      <div role="status" aria-live="polite">
+        {submitStatus === 'success' && (
+          <SuccessMessage>
+            <FaCheck aria-hidden="true" />
+            Message sent successfully!
+          </SuccessMessage>
+        )}
+        
+        {submitStatus === 'error' && (
+          <ErrorMessage>
+            Sorry, there was an error. Please try again or email hello@ajskidmore.com.
+          </ErrorMessage>
+        )}
+      </div>
     </>
   );
 };

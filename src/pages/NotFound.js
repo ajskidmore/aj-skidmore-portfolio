@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import { FaArrowLeft } from 'react-icons/fa';
 import { ThemeContext } from '../contexts/ThemeContext';
 
@@ -12,8 +13,8 @@ const NotFoundContainer = styled.div`
   justify-content: center;
   text-align: center;
   padding: 2rem;
-  background-color: ${props => props.isLight ? 'var(--background-color)' : 'var(--background-color)'};
-  color: ${props => props.isLight ? 'var(--text-color)' : 'var(--text-color)'};
+  background-color: ${props => props.$isLight ? 'var(--background-color)' : 'var(--background-color)'};
+  color: ${props => props.$isLight ? 'var(--text-color)' : 'var(--text-color)'};
   transition: background-color 0.5s ease, color 0.5s ease;
 `;
 
@@ -30,7 +31,7 @@ const NotFoundTitle = styled.h1`
 const NotFoundSubtitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--secondary-color)' : 'white'};
   transition: color 0.5s ease;
 
   @media (max-width: 768px) {
@@ -42,7 +43,7 @@ const NotFoundText = styled.p`
   font-size: 1.25rem;
   max-width: 600px;
   margin-bottom: 2rem;
-  color: ${props => props.isLight ? 'var(--text-color)' : 'var(--text-color)'};
+  color: ${props => props.$isLight ? 'var(--text-color)' : 'var(--text-color)'};
   
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -79,13 +80,14 @@ const HomeButton = styled(Link)`
 `;
 
 const NotFound = () => {
+  useDocumentTitle('Page not found');
   const { isLight } = useContext(ThemeContext);
 
   return (
-    <NotFoundContainer isLight={isLight}>
+    <NotFoundContainer $isLight={isLight}>
       <NotFoundTitle>404</NotFoundTitle>
-      <NotFoundSubtitle isLight={isLight}>Page Not Found</NotFoundSubtitle>
-      <NotFoundText isLight={isLight}>
+      <NotFoundSubtitle $isLight={isLight}>Page Not Found</NotFoundSubtitle>
+      <NotFoundText $isLight={isLight}>
         The page you are looking for doesn't exist or has been moved.
       </NotFoundText>
       <HomeButton to="/">

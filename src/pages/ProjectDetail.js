@@ -2,6 +2,7 @@
 // Simple project overview page for each featured project (/projects/:id).
 // The older long-form case studies are archived in src/archive/case-studies/.
 import React, { useEffect } from 'react';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaArrowLeft, FaExternalLinkAlt } from 'react-icons/fa';
@@ -157,15 +158,10 @@ const ProjectDetail = () => {
   const { id } = useParams();
   const project = getProjectById(id);
 
+  useDocumentTitle(project ? project.name : 'Project not found');
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    const previousTitle = document.title;
-    document.title = project
-      ? `${project.name} | A.J. Skidmore`
-      : 'Project not found | A.J. Skidmore';
-    return () => {
-      document.title = previousTitle;
-    };
   }, [project]);
 
   if (!project) {

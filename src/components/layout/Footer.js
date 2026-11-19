@@ -1,16 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { 
   FaLinkedinIn, 
   FaEnvelope, 
-  FaPhone,
-  FaSignInAlt
+  FaPhone
 } from 'react-icons/fa';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { useAuth } from '../../contexts/AuthContext';
 import ThemeBackground from '../theme/ThemeBackground';
-import LoginModal from '../auth/LoginModal';
 
 // Using ThemeBackground as the base
 const StyledFooterContainer = styled(ThemeBackground)`
@@ -123,7 +120,7 @@ const SocialLink = styled.a`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: ${props => props.isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)'};
+  background-color: ${props => props.$isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)'};
   color: var(--secondary-color);
   font-size: 1.2rem;
   transition: all 0.3s ease;
@@ -137,7 +134,7 @@ const SocialLink = styled.a`
 `;
 
 const FooterBottom = styled.div`
-  border-top: 1px solid ${props => props.isLight ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'};
+  border-top: 1px solid ${props => props.$isLight ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'};
   padding: 2rem 0;
   transition: border-color 0.5s ease;
   position: relative;
@@ -166,53 +163,10 @@ const Copyright = styled.p`
   }
 `;
 
-const LoginLink = styled.button`
-  display: flex;
-  align-items: center;
-  font-size: 0.95rem;
-  color: var(--text-color);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  
-  svg {
-    margin-right: 0.5rem;
-    color: var(--primary-color);
-  }
-  
-  &:hover {
-    background-color: ${props => props.isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
-    color: var(--primary-color);
-  }
-`;
-
-const LogoutButton = styled.button`
-  display: flex;
-  align-items: center;
-  font-size: 0.95rem;
-  color: var(--text-color);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  
-  &:hover {
-    background-color: ${props => props.isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)'};
-    color: var(--primary-color);
-  }
-`;
-
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { isLight } = useContext(ThemeContext);
-  const { isAuthenticated, logout } = useAuth();
-  const [showLoginModal, setShowLoginModal] = useState(false);
   
   return (
     <StyledFooterContainer forwardedAs="footer">
@@ -232,21 +186,21 @@ const Footer = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                isLight={isLight}
+                $isLight={isLight}
               >
                 <FaLinkedinIn />
               </SocialLink>
               <SocialLink 
                 href="mailto:hello@ajskidmore.com"
                 aria-label="Email Contact"
-                isLight={isLight}
+                $isLight={isLight}
               >
                 <FaEnvelope />
               </SocialLink>
               <SocialLink 
                 href="tel:+15176685268"
                 aria-label="Phone Contact"
-                isLight={isLight}
+                $isLight={isLight}
               >
                 <FaPhone />
               </SocialLink>
@@ -257,16 +211,16 @@ const Footer = () => {
             <FooterTitle>Quick Links</FooterTitle>
             <FooterLinks>
               <FooterLink>
-                <a href="/#">Home</a>
+                <Link to="/">Home</Link>
               </FooterLink>
               <FooterLink>
-                <a href="/about">About Me</a>
+                <Link to="/about">About Me</Link>
               </FooterLink>
               <FooterLink>
-                <a href="/projects">Projects</a>
+                <Link to="/projects">Projects</Link>
               </FooterLink>
               <FooterLink>
-                <a href="/contact">Contact</a>
+                <Link to="/contact">Contact</Link>
               </FooterLink>
             </FooterLinks>
           </FooterColumn>
@@ -289,29 +243,15 @@ const Footer = () => {
         </FooterTop>
       </div>
       
-      <FooterBottom isLight={isLight}>
+      <FooterBottom $isLight={isLight}>
         <div className="container">
           <FooterBottomContent>
             <Copyright>
-              &copy; {currentYear} <a href="/">A.J. Skidmore</a>. All rights reserved.
+              &copy; {currentYear} <Link to="/">A.J. Skidmore</Link>. All rights reserved.
             </Copyright>
-            {isAuthenticated ? (
-              <LogoutButton onClick={logout} isLight={isLight}>
-                Logout
-              </LogoutButton>
-            ) : (
-              <LoginLink onClick={() => setShowLoginModal(true)} isLight={isLight}>
-                <FaSignInAlt aria-hidden="true" /> Admin Login
-              </LoginLink>
-            )}
           </FooterBottomContent>
         </div>
       </FooterBottom>
-      
-      <LoginModal 
-        isOpen={showLoginModal} 
-        onClose={() => setShowLoginModal(false)} 
-      />
     </StyledFooterContainer>
   );
 };

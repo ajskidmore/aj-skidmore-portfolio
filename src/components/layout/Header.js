@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -32,7 +32,7 @@ const DarkLayer = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(17, 24, 39, 0.95);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 1;
 `;
@@ -45,7 +45,7 @@ const LightLayer = styled.div`
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 2;
 `;
@@ -66,7 +66,7 @@ const LogoContainer = styled(motion.div)`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--secondary-color)' : 'white'};
   display: flex;
   align-items: center;
   transition: color var(--transition-duration) var(--transition-timing);
@@ -84,7 +84,7 @@ const MobileMenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--secondary-color)' : 'white'};
   font-size: 1.75rem;
   cursor: pointer;
   transition: color var(--transition-duration) var(--transition-timing);
@@ -114,12 +114,26 @@ const Header = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  // Escape closes the phone menu and returns focus to the menu button
+  const menuButtonRef = useRef(null);
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
   return (
     <StyledRoot>
       <HeaderContainer>
         {/* Layered backgrounds for smooth transition */}
-        <DarkLayer isActive={!isLight} />
-        <LightLayer isActive={isLight} />
+        <DarkLayer $isActive={!isLight} />
+        <LightLayer $isActive={isLight} />
         
         <div className="container">
           <HeaderContent>
@@ -128,7 +142,7 @@ const Header = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Logo to="/" isLight={isLight}>
+              <Logo to="/" $isLight={isLight}>
                 <LogoHighlight>A.J.</LogoHighlight> Skidmore
               </Logo>
             </LogoContainer>
@@ -137,10 +151,11 @@ const Header = () => {
               <ThemeToggle />
               
               <MobileMenuButton 
+                ref={menuButtonRef}
                 onClick={toggleMobileMenu} 
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
-                isLight={isLight}
+                $isLight={isLight}
               >
                 {mobileMenuOpen ? <FiX /> : <FiMenu />}
               </MobileMenuButton>
@@ -149,7 +164,6 @@ const Header = () => {
             <Navigation 
               mobileMenuOpen={mobileMenuOpen} 
               toggleMobileMenu={toggleMobileMenu} 
-              isLight={isLight} 
             />
           </HeaderContent>
         </div>

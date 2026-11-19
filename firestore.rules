@@ -1,15 +1,28 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow contact form submissions and admin access
-    match /contactSubmissions/{document} {
-      allow read: if true; // Allow reading for admin functionality
-      allow create: if true; // Allow anyone to create contact submissions
-      allow update: if true; // Allow updating for marking as read
-      allow delete: if true; // Allow deletion for admin cleanup
+
+    // Contact form: anyone may SEND a message, nobody may read, change or delete
+    // messages from the browser. Read them in the Firebase console
+    // (Firestore Database > contactSubmissions).
+    match /contactSubmissions/{submissionId} {
+      allow create: if isValidSubmission(request.resource.data);
+      allow read, update, delete: if false;
     }
-    
-    // Default rule for other collections
+
+    function isValidSubmission(d) {
+      return d.keys().hasOnly(['name', 'email', 'subject', 'message', 'timestamp', 'read'])
+        && d.keys().hasAll(['name', 'email', 'subject', 'message', 'timestamp', 'read'])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 200
+        && d.email is string && d.email.size() <= 320
+        && d.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && d.subject is string && d.subject.size() > 0 && d.subject.size() <= 200
+        && d.message is string && d.message.size() > 0 && d.message.size() <= 5000
+        && d.timestamp == request.time
+        && d.read == false;
+    }
+
+    // Everything else is closed.
     match /{document=**} {
       allow read, write: if false;
     }

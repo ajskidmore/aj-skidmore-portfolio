@@ -5,10 +5,10 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 
 const ToggleButton = styled.button`
   background: ${props => {
-    if (props.isAuto) {
-      return props.isLight ? 'linear-gradient(45deg, var(--primary-color), var(--accent-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))';
+    if (props.$isAuto) {
+      return props.$isLight ? 'linear-gradient(45deg, var(--primary-color), var(--accent-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))';
     }
-    return props.isLight ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.2)';
+    return props.$isLight ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.2)';
   }};
   color: white;
   border: none;
@@ -29,10 +29,10 @@ const ToggleButton = styled.button`
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     background: ${props => {
-      if (props.isAuto) {
-        return props.isLight ? 'linear-gradient(45deg, var(--accent-color), var(--primary-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2))';
+      if (props.$isAuto) {
+        return props.$isLight ? 'linear-gradient(45deg, var(--accent-color), var(--primary-color))' : 'linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2))';
       }
-      return props.isLight ? 'var(--accent-color)' : 'rgba(255, 255, 255, 0.3)';
+      return props.$isLight ? 'var(--accent-color)' : 'rgba(255, 255, 255, 0.3)';
     }};
   }
   
@@ -75,8 +75,8 @@ const ThemeToggle = () => {
   return (
     <ToggleButton 
       onClick={toggleTheme} 
-      isLight={isLight}
-      isAuto={isAutoMode}
+      $isLight={isLight}
+      $isAuto={isAutoMode}
       aria-label={getTooltipText()}
       title={getTooltipText()}
     >

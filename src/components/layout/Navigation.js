@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { useAuth } from '../../contexts/AuthContext';
 
 const Nav = styled.nav`
   @media (max-width: 768px) {
@@ -13,12 +12,12 @@ const Nav = styled.nav`
     width: 75%;
     max-width: 300px;
     height: 100vh;
-    background-color: ${props => props.isLight ? 'white' : '#1a1a1a'};
+    background-color: ${props => props.$isLight ? 'white' : '#1a1a1a'};
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     padding: 5rem 2rem 2rem;
-    transform: ${props => props.mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)'};
+    transform: ${props => props.$mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)'};
     /* Hidden menu links must not be reachable by keyboard or screen readers */
-    visibility: ${props => props.mobileMenuOpen ? 'visible' : 'hidden'};
+    visibility: ${props => props.$mobileMenuOpen ? 'visible' : 'hidden'};
     transition: transform 0.3s ease-in-out, visibility 0.3s, background-color 0.5s ease;
     display: flex;
     flex-direction: column;
@@ -29,7 +28,7 @@ const Nav = styled.nav`
 const MobileNavBackdrop = styled.div`
   display: none;
   @media (max-width: 768px) {
-    display: ${props => props.mobileMenuOpen ? 'block' : 'none'};
+    display: ${props => props.$mobileMenuOpen ? 'block' : 'none'};
     position: fixed;
     top: 0;
     left: 0;
@@ -62,7 +61,7 @@ const NavItem = styled(motion.li)`
 `;
 
 const NavItemLink = styled(NavLink)`
-  color: ${props => props.isLight ? 'var(--text-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--text-color)' : 'white'};
   font-weight: 500;
   transition: all 0.3s ease;
   padding: 0.5rem;
@@ -94,7 +93,7 @@ const NavItemLink = styled(NavLink)`
     display: block;
     padding: 0.75rem 0;
     font-size: 1.25rem;
-    color: ${props => props.isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
+    color: ${props => props.$isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
   }
 `;
 
@@ -145,7 +144,6 @@ const itemVariants = {
 
 const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
   const { isLight } = useContext(ThemeContext);
-  const { isAuthenticated } = useAuth();
   
   // Function to handle navigation on mobile
   const handleNavClick = () => {
@@ -156,8 +154,8 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
 
   return (
     <>
-      <MobileNavBackdrop mobileMenuOpen={mobileMenuOpen} onClick={toggleMobileMenu} aria-hidden="true" />
-      <Nav mobileMenuOpen={mobileMenuOpen} isLight={isLight} aria-label="Main">
+      <MobileNavBackdrop $mobileMenuOpen={mobileMenuOpen} onClick={toggleMobileMenu} aria-hidden="true" />
+      <Nav $mobileMenuOpen={mobileMenuOpen} $isLight={isLight} aria-label="Main">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -168,7 +166,7 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 <NavItemLink 
                   to="/" 
                   onClick={handleNavClick}
-                  isLight={isLight}
+                  $isLight={isLight}
                   className={({ isActive }) => isActive ? 'active' : ''}
                 >
                   Home
@@ -179,7 +177,7 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 <NavItemLink 
                   to="/about" 
                   onClick={handleNavClick}
-                  isLight={isLight}
+                  $isLight={isLight}
                   className={({ isActive }) => isActive ? 'active' : ''}
                 >
                   About
@@ -192,25 +190,13 @@ const Navigation = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 <NavItemLink 
                   to="/projects" 
                   onClick={handleNavClick}
-                  isLight={isLight}
+                  $isLight={isLight}
                   className={({ isActive }) => isActive ? 'active' : ''}
                 >
                   Projects
                 </NavItemLink>
               </NavItem>
             
-            {isAuthenticated && (
-              <NavItem variants={itemVariants}>
-                  <NavItemLink 
-                    to="/admin" 
-                    onClick={handleNavClick}
-                    isLight={isLight}
-                    className={({ isActive }) => isActive ? 'active' : ''}
-                  >
-                    Admin
-                  </NavItemLink>
-                </NavItem>
-            )}
             
             <NavItem variants={itemVariants}>
                 <ContactButton 

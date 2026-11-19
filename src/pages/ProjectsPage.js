@@ -3,16 +3,18 @@ import React, { useContext, useEffect } from 'react';
 import Projects from '../components/sections/Projects';
 import { ThemeContext } from '../contexts/ThemeContext';
 import styled from 'styled-components';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const PageContainer = styled.div`
   padding-top: 80px; /* Add padding to account for fixed header */
-  background-color: ${props => props.isLight ? 'var(--section-bg)' : 'var(--background-color)'};
+  background-color: ${props => props.$isLight ? 'var(--section-bg)' : 'var(--background-color)'};
   transition: background-color 0.5s ease;
   min-height: 100vh;
 `;
 
 const ProjectsPage = () => {
   const { isLight } = useContext(ThemeContext);
+  useDocumentTitle('Projects');
   
   // Scroll to top on page load
   useEffect(() => {
@@ -20,7 +22,7 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <PageContainer isLight={isLight}>
+    <PageContainer $isLight={isLight}>
       <Projects />
     </PageContainer>
   );

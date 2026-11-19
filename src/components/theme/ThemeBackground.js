@@ -19,7 +19,7 @@ const DarkLayer = styled.div`
   right: 0;
   bottom: 0;
   background: var(--dark-bg);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 1;
 `;
@@ -31,7 +31,7 @@ const LightLayer = styled.div`
   right: 0;
   bottom: 0;
   background: var(--light-bg);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 2;
 `;
@@ -49,8 +49,8 @@ const ThemeBackground = ({ children, className, as, id }) => {
   return (
     <Container className={className} as={as} id={id}>
       {/* Layered backgrounds for smooth transition */}
-      <DarkLayer isActive={!isLight} aria-hidden="true" />
-      <LightLayer isActive={isLight} aria-hidden="true" />
+      <DarkLayer $isActive={!isLight} aria-hidden="true" />
+      <LightLayer $isActive={isLight} aria-hidden="true" />
       
       <ContentWrapper>
         {children}

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider } from './contexts/AuthContext';
 import styled from 'styled-components';
 import { MotionConfig } from 'framer-motion';
 
@@ -19,7 +18,6 @@ import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import ProjectDetail from './pages/ProjectDetail';
-import AdminPage from './pages/AdminPage';
 import NotFound from './pages/NotFound';
 
 // Styles
@@ -73,7 +71,6 @@ function App() {
 
   return (
     <ThemeProvider>
-      <AuthProvider>
         <Router>
           <MotionConfig reducedMotion="user">
           <GlobalTheme />
@@ -89,7 +86,6 @@ function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/contact" element={<ContactPage />} />
-                <Route path="/admin" element={<AdminPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </MainContent>
@@ -100,7 +96,6 @@ function App() {
           <ModalContainer id="modal-root-fallback" />
           </MotionConfig>
         </Router>
-      </AuthProvider>
     </ThemeProvider>
   );
 }

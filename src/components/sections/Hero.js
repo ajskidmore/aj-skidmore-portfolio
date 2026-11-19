@@ -39,7 +39,7 @@ const DarkLayer = styled.div`
   right: 0;
   bottom: 0;
   background: var(--dark-bg);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 1;
 `;
@@ -51,7 +51,7 @@ const LightLayer = styled.div`
   right: 0;
   bottom: 0;
   background: var(--light-bg);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 2;
 `;
@@ -68,7 +68,7 @@ const HeroBackground = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    color: ${props => props.isLight ? '#000' : '#fff'};
+    color: ${props => props.$isLight ? '#000' : '#fff'};
     transition: color var(--transition-duration) var(--transition-timing);
   }
 `;
@@ -85,10 +85,10 @@ const HeroContent = styled.div`
 
 const HeroGreeting = styled(motion.p)`
   display: inline-block;
-  background-color: ${props => props.isLight 
+  background-color: ${props => props.$isLight 
     ? 'rgba(59, 130, 246, 0.1)'
     : 'rgba(255, 255, 255, 0.1)'};
-  color: ${props => props.isLight ? 'var(--primary-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--primary-color)' : 'white'};
   padding: 0.5rem 1rem;
   border-radius: 30px;
   font-weight: 500;
@@ -106,14 +106,14 @@ const HeroTitle = styled(motion.h1)`
   margin-bottom: 1.25rem;
   line-height: 1.2;
   white-space: nowrap;
-  color: ${props => props.isLight
+  color: ${props => props.$isLight
     ? 'transparent'
     : 'white'};
-  background: ${props => props.isLight
+  background: ${props => props.$isLight
     ? 'linear-gradient(to right, var(--secondary-color), var(--primary-color))'
     : 'none'};
-  -webkit-background-clip: ${props => props.isLight ? 'text' : 'none'};
-  background-clip: ${props => props.isLight ? 'text' : 'none'};
+  -webkit-background-clip: ${props => props.$isLight ? 'text' : 'none'};
+  background-clip: ${props => props.$isLight ? 'text' : 'none'};
   transition: all var(--transition-duration) var(--transition-timing);
 
   @media (min-width: 768px) {
@@ -128,7 +128,7 @@ const HeroTitle = styled(motion.h1)`
 const HeroSubtitle = styled(motion.p)`
   font-size: 1.1rem;
   font-weight: 400;
-  color: ${props => props.isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
+  color: ${props => props.$isLight ? 'var(--text-color)' : 'rgba(255, 255, 255, 0.9)'};
   margin-bottom: 2rem;
   line-height: 1.5;
   max-width: 650px;
@@ -202,8 +202,8 @@ const SecondaryCTA = styled(Link)`
   align-items: center;
   padding: .875rem 1.75rem;
   background-color: transparent;
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
-  border: 2px solid ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
+  color: ${props => props.$isLight ? 'var(--secondary-color)' : 'white'};
+  border: 2px solid ${props => props.$isLight ? 'var(--secondary-color)' : 'white'};
   border-radius: var(--border-radius);
   font-weight: 600;
   font-size: 1.125rem;
@@ -211,59 +211,8 @@ const SecondaryCTA = styled(Link)`
   text-decoration: none;
   
   &:hover {
-    background-color: ${props => props.isLight ? 'var(--secondary-color)' : 'rgba(255, 255, 255, 0.1)'};
-    color: ${props => props.isLight ? 'white' : 'white'};
-    transform: translateY(-3px);
-  }
-`;
-
-// Fallback button styles for non-React Router environments
-const PrimaryCTAFallback = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: 0.875rem 1.75rem;
-  background-color: var(--primary-fill);
-  color: white;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  font-size: 1.125rem;
-  box-shadow: 0 4px 14px rgba(0, 118, 255, 0.25);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  
-  svg {
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-  }
-  
-  &:hover {
-    background-color: var(--accent-fill);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 118, 255, 0.35);
-    
-    svg {
-      transform: translateX(3px);
-    }
-  }
-`;
-
-const SecondaryCTAFallback = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: .875rem 1.75rem;
-  background-color: transparent;
-  color: ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
-  border: 2px solid ${props => props.isLight ? 'var(--secondary-color)' : 'white'};
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: all var(--transition-duration) var(--transition-timing);
-  text-decoration: none;
-  
-  &:hover {
-    background-color: ${props => props.isLight ? 'var(--secondary-color)' : 'rgba(255, 255, 255, 0.1)'};
-    color: ${props => props.isLight ? 'white' : 'white'};
+    background-color: ${props => props.$isLight ? 'var(--secondary-color)' : 'rgba(255, 255, 255, 0.1)'};
+    color: ${props => props.$isLight ? 'white' : 'white'};
     transform: translateY(-3px);
   }
 `;
@@ -331,7 +280,7 @@ const DarkScreenLayer = styled.div`
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 1;
 `;
@@ -343,7 +292,7 @@ const LightScreenLayer = styled.div`
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  opacity: ${props => props.isActive ? 1 : 0};
+  opacity: ${props => props.$isActive ? 1 : 0};
   transition: opacity var(--transition-duration) var(--transition-timing);
   z-index: 2;
 `;
@@ -356,7 +305,7 @@ const ScreenContent = styled.div`
   bottom: 0;
   padding: 20px;
   font-family: monospace;
-  color: ${props => props.isLight ? '#3b82f6' : '#4ade80'};
+  color: ${props => props.$isLight ? '#3b82f6' : '#4ade80'};
   font-size: 14px;
   overflow: hidden;
   transition: color var(--transition-duration) var(--transition-timing);
@@ -366,14 +315,14 @@ const ScreenContent = styled.div`
 const CodeLine = styled.div`
   margin-bottom: 8px;
   white-space: nowrap;
-  opacity: ${props => props.active ? 1 : 0.6};
+  opacity: ${props => props.$active ? 1 : 0.6};
 `;
 
 const Cursor = styled(motion.div)`
   position: absolute;
   width: 10px;
   height: 10px;
-  background: ${props => props.isLight ? 'rgba(59, 130, 246, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+  background: ${props => props.$isLight ? 'rgba(59, 130, 246, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
   border-radius: 50%;
   z-index: 5;
   transition: background var(--transition-duration) var(--transition-timing);
@@ -390,7 +339,6 @@ const Hero = () => {
   const screenRef = useRef(null);
   const [activeCodeLine, setActiveCodeLine] = useState(0);
   const { isLight } = useContext(ThemeContext);
-  const [useReactRouter, setUseReactRouter] = useState(true);
 
   // Animations can be paused (WCAG 2.2.2) and stop for "reduce motion" (2.3.3)
   const [animationsPaused, setAnimationsPaused] = useState(false);
@@ -417,16 +365,6 @@ const Hero = () => {
   ];
   
   useEffect(() => {
-    // Check if React Router is available
-    try {
-      // This will throw an error if we're not in a React Router context
-      const reactRouterAvailable = !!window.__REACT_ROUTER__ ||
-                                   (typeof require === 'function' && require('react-router-dom'));
-      setUseReactRouter(true);
-    } catch (e) {
-      setUseReactRouter(false);
-    }
-
     // Cycle through code lines (stops when animations are paused)
     if (motionStopped) return undefined;
     const interval = setInterval(() => {
@@ -458,10 +396,10 @@ const Hero = () => {
     <StyledRoot>
       <HeroSection id="home">
         {/* Layered backgrounds for smooth transition */}
-        <DarkLayer isActive={!isLight} />
-        <LightLayer isActive={isLight} />
+        <DarkLayer $isActive={!isLight} />
+        <LightLayer $isActive={isLight} />
         
-        <HeroBackground isLight={isLight}>
+        <HeroBackground $isLight={isLight}>
           <svg viewBox="0 0 1440 800" preserveAspectRatio="none">
             <path
               fill="currentColor"
@@ -476,7 +414,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              isLight={isLight}
+              $isLight={isLight}
             >
               <span aria-hidden="true">👋 </span>Hi! I'm A.J. Skidmore
             </HeroGreeting>
@@ -486,7 +424,7 @@ const Hero = () => {
               animate="visible"
               variants={fadeInUp}
               transition={{ duration: 0.6, delay: 0.2 }}
-              isLight={isLight}
+              $isLight={isLight}
             >
               <span className="visually-hidden">Full-Stack Engineer and UX Designer</span>
               <span aria-hidden="true">
@@ -505,7 +443,7 @@ const Hero = () => {
               animate="visible"
               variants={fadeInUp}
               transition={{ duration: 0.6, delay: 0.3 }}
-              isLight={isLight}
+              $isLight={isLight}
             >
               I design and build accessible, user-centered products, from user research, wireframes and prototypes to production code.
             </HeroSubtitle>
@@ -516,25 +454,12 @@ const Hero = () => {
               variants={fadeInUp}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              {useReactRouter ? (
-                <>
-                  <PrimaryCTA to="/projects">
-                    View My Work <FaArrowRight />
-                  </PrimaryCTA>
-                  <SecondaryCTA to="/contact" isLight={isLight}>
-                    Get In Touch
-                  </SecondaryCTA>
-                </>
-              ) : (
-                <>
-                  <PrimaryCTAFallback href="./projects">
-                    View My Work <FaArrowRight />
-                  </PrimaryCTAFallback>
-                  <SecondaryCTAFallback href="./contact" isLight={isLight}>
-                    Get In Touch
-                  </SecondaryCTAFallback>
-                </>
-              )}
+              <PrimaryCTA to="/projects">
+                View My Work <FaArrowRight aria-hidden="true" />
+              </PrimaryCTA>
+              <SecondaryCTA to="/contact" $isLight={isLight}>
+                Get In Touch
+              </SecondaryCTA>
             </CTAContainer>
             {!reduceMotion && (
               <PauseButton
@@ -559,14 +484,14 @@ const Hero = () => {
           <ComputerImage>
             <ComputerScreen>
               {/* Layered backgrounds for computer screen */}
-              <DarkScreenLayer isActive={!isLight} />
-              <LightScreenLayer isActive={isLight} />
+              <DarkScreenLayer $isActive={!isLight} />
+              <LightScreenLayer $isActive={isLight} />
               
-              <ScreenContent ref={screenRef} isLight={isLight}>
+              <ScreenContent ref={screenRef} $isLight={isLight}>
                 {codeLines.map((line, index) => (
                   <CodeLine 
                     key={index} 
-                    active={index === activeCodeLine}
+                    $active={index === activeCodeLine}
                   >
                     {line}
                   </CodeLine>
@@ -581,7 +506,7 @@ const Hero = () => {
                     stiffness: 50,
                     damping: 20
                   }}
-                  isLight={isLight}
+                  $isLight={isLight}
                 />
               </ScreenContent>
             </ComputerScreen>
