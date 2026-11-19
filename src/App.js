@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import styled from 'styled-components';
 import { MotionConfig } from 'framer-motion';
@@ -23,6 +23,9 @@ import NotFound from './pages/NotFound';
 // Styles
 import './styles/global.css';
 import './styles/variables.css';
+
+// Redesign preview: its own layout, loaded only when /new-design is visited
+const NewDesign = lazy(() => import('./pages/NewDesign/NewDesign'));
 
 // Styled components for proper stacking
 const AppContainer = styled.div`
@@ -50,6 +53,42 @@ const ModalContainer = styled.div`
   pointer-events: none;
 `;
 
+// Chooses between the redesign preview (standalone) and the current site layout
+function Layout() {
+  const { pathname } = useLocation();
+
+  if (pathname.startsWith('/new-design')) {
+    return (
+      <Suspense fallback={null}>
+        <NewDesign />
+      </Suspense>
+    );
+  }
+
+  return (
+    <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+      <AppContainer>
+        <Header />
+        <MainContent id="main-content" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutPage />} />
+            {/* <Route path="/skills" element={<SkillsPage />} /> */}
+            <Route path="/skills" element={<Navigate to="/about" replace />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </MainContent>
+        <Footer />
+        {/* <Chatbot /> */} {/* Temporarily disabled */}
+      </AppContainer>
+    </>
+  );
+}
+
 function App() {
   // Create modal container if it doesn't exist
   useEffect(() => {
@@ -74,24 +113,7 @@ function App() {
         <Router>
           <MotionConfig reducedMotion="user">
           <GlobalTheme />
-          <a className="skip-link" href="#main-content">Skip to main content</a>
-          <AppContainer>
-            <Header />
-            <MainContent id="main-content" tabIndex={-1}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutPage />} />
-                {/* <Route path="/skills" element={<SkillsPage />} /> */}
-                <Route path="/skills" element={<Navigate to="/about" replace />} />
-                <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/projects/:id" element={<ProjectDetail />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </MainContent>
-            <Footer />
-            {/* <Chatbot /> */} {/* Temporarily disabled */}
-          </AppContainer>
+          <Layout />
           {/* This is a fallback container that will be used if the useEffect doesn't run */}
           <ModalContainer id="modal-root-fallback" />
           </MotionConfig>
