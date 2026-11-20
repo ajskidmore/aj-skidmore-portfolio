@@ -41,6 +41,7 @@ const DESIGN_PREVIEWS = {
   '/new-design13': lazy(() => import('./pages/NewDesign13/NewDesign13')),
   '/new-design14': lazy(() => import('./pages/NewDesign14/NewDesign14')),
   '/new-design15': lazy(() => import('./pages/NewDesign15/NewDesign15')),
+  '/new-design16': lazy(() => import('./pages/NewDesign16/NewDesign16')),
 };
 
 // Styled components for proper stacking
