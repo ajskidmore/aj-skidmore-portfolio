@@ -155,7 +155,7 @@ const NewDesign10 = () => {
           <h2 className="n10-h2 n10-reveal" id="n10-work-title">Five products, one connected practice.</h2>
           <ul className="n10-cards">
             {projects.map((p) => (
-              <li key={p.id} className={`n10-card n10-reveal${active === p.id ? ' is-on' : ''}`}
+              <li key={p.id} className="n10-card n10-reveal" data-on={active === p.id ? 'true' : undefined}
                 onMouseEnter={() => setActive(p.id)} onMouseLeave={() => setActive(null)}
                 onFocus={() => setActive(p.id)} onBlur={() => setActive(null)}>
                 <div className="n10-card__img" aria-hidden="true">

@@ -97,7 +97,7 @@ body.n10-page { background: #f8f6f2; }
 .n10-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
 .n10-card { position: relative; grid-column: span 2; padding: 12px 12px 20px; border-radius: 8px; background: #fff; border: 1px solid var(--line); transition: border-color 0.3s ease, box-shadow 0.4s var(--ease), transform 0.4s var(--ease); }
 .n10-card:nth-child(1), .n10-card:nth-child(2) { grid-column: span 3; }
-.n10-card:hover, .n10-card.is-on { border-color: var(--rose); box-shadow: 0 16px 40px rgba(31, 78, 110, 0.12); transform: translateY(-3px); }
+.n10-card:hover, .n10-card[data-on] { border-color: var(--rose); box-shadow: 0 16px 40px rgba(31, 78, 110, 0.12); transform: translateY(-3px); }
 .n10-card__img { border-radius: 4px; overflow: hidden; margin-bottom: 14px; background: var(--sky); }
 .n10-card__img img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; object-position: top; }
 .n10-card .n10-mono, .n10-card h3, .n10-card p { padding: 0 6px; }
