@@ -71,10 +71,11 @@ body.n8-page { background: #9e1f24; }
   display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.12em;
 }
 .n8-portrait {
-  position: absolute; left: 50%; top: 50%; width: clamp(180px, 22vw, 300px); translate: -50% -56%; rotate: -5deg;
-  padding: 10px; border-radius: 26px; background: #fff; box-shadow: 8px 10px 0 rgba(42, 12, 12, 0.55); z-index: 2;
+  position: absolute; left: 50%; top: 50%; width: clamp(190px, 24vw, 330px); translate: -50% -50%; rotate: -5deg; z-index: 2;
+  /* Die-cut sticker: a white outline traced around the cutout, then a hard drop shadow */
+  filter: drop-shadow(0 0 0 #fff) drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(8px 10px 0 rgba(42, 12, 12, 0.55));
 }
-.n8-portrait img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 15%; border-radius: 18px; }
+.n8-portrait img { display: block; width: 100%; height: auto; }
 .n8-tagline { position: absolute; left: 50%; bottom: 104px; translate: -50% 0; width: min(560px, 90%); font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 500; z-index: 3; }
 .n8-hint { position: absolute; right: var(--pad); top: 84px; font-weight: 700; font-size: 14px; color: var(--gold-pale); transform: rotate(4deg); }
 

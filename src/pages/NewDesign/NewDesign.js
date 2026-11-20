@@ -336,7 +336,7 @@ const NewDesign = () => {
           <div className="nd-wrap nd-about">
             <div className="nd-about__photo nd-reveal">
               <div className="nd-portrait">
-                <img src="/assets/images/A.J.%20Skidmore%20Headshot.jpg" alt="A.J. Skidmore smiling, wearing a navy suit jacket" width="480" height="480" loading="lazy" />
+                <img src="/assets/images/new-design/aj-cutout.png" alt="A.J. Skidmore smiling, wearing a navy suit jacket" width="1200" height="1600" loading="lazy" />
               </div>
               <p className="nd-caption">B.A. Experience Architecture<br />Michigan State University, 2023</p>
             </div>

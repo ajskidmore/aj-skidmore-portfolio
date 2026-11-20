@@ -115,7 +115,7 @@ body.n10-page { background: #f8f6f2; }
 .n10-skill-list__name { font-family: var(--serif); font-size: 1.25rem; }
 
 .n10-about { display: grid; grid-template-columns: minmax(220px, 4fr) 7fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
-.n10-about__photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 8px; }
+.n10-about__photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; border-radius: 8px; background: radial-gradient(70% 60% at 50% 40%, #ffffff, #dbe9f2 70%); }
 .n10-about p:not(.n10-eyebrow) { color: var(--gray); max-width: 56ch; margin-bottom: 30px; font-size: 18px; }
 
 .n10-foot { display: flex; justify-content: space-between; gap: 16px; padding: 22px var(--pad) 32px; border-top: 1px solid var(--line); color: var(--gray); font-size: 14px; }

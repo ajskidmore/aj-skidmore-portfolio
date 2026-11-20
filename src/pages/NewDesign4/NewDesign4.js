@@ -174,7 +174,7 @@ const NewDesign4 = () => {
         </section>
 
         <section className="n4-outro n4-reveal" aria-labelledby="n4-outro-title">
-          <img className="n4-avatar" src="/assets/images/A.J.%20Skidmore%20Headshot.jpg" alt="" width="96" height="96" loading="lazy" />
+          <img className="n4-avatar" src="/assets/images/new-design/aj-cutout-sm.png" alt="" width="96" height="128" loading="lazy" />
           <h2 id="n4-outro-title">Hey, it&rsquo;s me, the maker of everything you just saw.</h2>
           <p>If something caught your eye, I&rsquo;m a message away.</p>
           <div className="n4-actions">

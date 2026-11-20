@@ -116,7 +116,7 @@ const NewDesign2 = () => {
         {/* ---------- About ---------- */}
         <section className="n2-section n2-about" id="about" aria-labelledby="n2-about-title">
           <div className="n2-about__photo n2-reveal">
-            <img src="/assets/images/A.J.%20Skidmore%20Headshot.jpg" alt="A.J. Skidmore smiling, wearing a navy suit jacket" width="420" height="420" loading="lazy" />
+            <img src="/assets/images/new-design/aj-cutout.png" alt="A.J. Skidmore smiling, wearing a navy suit jacket" width="1200" height="1600" loading="lazy" />
           </div>
           <div className="n2-about__text">
             <h2 className="n2-h2 n2-reveal" id="n2-about-title">Hey, I&rsquo;m A.J.</h2>

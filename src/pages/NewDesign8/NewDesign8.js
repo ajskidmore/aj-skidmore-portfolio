@@ -151,7 +151,7 @@ const NewDesign8 = () => {
             <span>A.J.</span> <span>Skidmore</span>
           </h1>
           <figure className="n8-portrait">
-            <img src="/assets/images/A.J.%20Skidmore%20Headshot.jpg" alt="A.J. Skidmore smiling, in a navy suit jacket" width="320" height="320" />
+            <img src="/assets/images/new-design/aj-cutout-sm.png" alt="A.J. Skidmore smiling, in a navy suit jacket" width="600" height="800" />
           </figure>
           <p className="n8-tagline">UX designer &amp; front-end engineer making the internet a friendlier place.</p>
           <Draggable className="n8-s1"><Smiley /></Draggable>

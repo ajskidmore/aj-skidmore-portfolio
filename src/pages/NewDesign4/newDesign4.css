@@ -121,7 +121,7 @@ body.n4-page { background: #ececec; }
 
 /* ---------- Outro ---------- */
 .n4-outro { max-width: 560px; margin: 0 auto; padding: clamp(96px, 12vw, 160px) 24px; text-align: center; }
-.n4-avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; margin: 0 auto 20px; display: block; }
+.n4-avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: 50% 4%; margin: 0 auto 20px; display: block; background: #d8d8d8; }
 .n4-outro h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 500; line-height: 1.25; margin-bottom: 10px; }
 .n4-outro p { color: var(--n4-muted); }
 .n4-outro .n4-actions { justify-content: center; }
