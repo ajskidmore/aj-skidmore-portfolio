@@ -75,20 +75,6 @@ const NewDesign9 = () => {
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, [reduceMotion]);
 
-  // Portrait leans toward the pointer a little (pointer devices only)
-  useEffect(() => {
-    if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return undefined;
-    const fig = rootRef.current && rootRef.current.querySelector('.n9-portrait');
-    if (!fig) return undefined;
-    const move = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      fig.style.transform = `translate(-50%, 0) rotateY(${x * 6}deg) rotateX(${-y * 4}deg)`;
-    };
-    window.addEventListener('pointermove', move);
-    return () => window.removeEventListener('pointermove', move);
-  }, [reduceMotion]);
-
   const work = WORK.map((id) => featuredProjects.find((p) => p.id === id)).filter(Boolean);
 
   return (
@@ -117,13 +103,12 @@ const NewDesign9 = () => {
             <span className="n9-title__l2"><span>tech </span><span>more </span></span>
             <span className="n9-title__l3">human</span>
           </h1>
-          <figure className="n9-portrait" aria-hidden="true">
-            <img src="/assets/images/new-design/portrait-tall.jpg" alt="" width="900" height="1200" />
-          </figure>
-          <Callout label="Built to be used" className="n9-hero__callout">
-            A UX designer and front-end engineer shaping products people understand on the first try.
-          </Callout>
-          <p className="n9-hero__meta n9-mono">B.A. Experience Architecture · MSU<br />30+ sites &amp; apps shipped</p>
+          <div className="n9-hero__row">
+            <Callout label="Built to be used" className="n9-hero__callout">
+              A UX designer and front-end engineer shaping products people understand on the first try.
+            </Callout>
+            <p className="n9-hero__meta n9-mono">B.A. Experience Architecture · MSU<br />30+ sites &amp; apps shipped</p>
+          </div>
         </section>
 
         {/* ---------- Statement ---------- */}
