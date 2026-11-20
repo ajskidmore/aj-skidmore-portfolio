@@ -136,7 +136,10 @@ const NewDesign3 = () => {
             {rows.map((r, i) => (
               <li
                 key={r.id}
-                className={`n3-row n3-reveal${hovered === r.id ? ' is-hovered' : ''}`}
+                // Keep className constant: the reveal helper adds "is-in" directly to the
+                // element, and a changing className would make React remove it on hover.
+                className="n3-row n3-reveal"
+                data-hovered={hovered === r.id ? 'true' : undefined}
                 onMouseEnter={() => setHovered(r.id)}
               >
                 <span className="n3-row__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

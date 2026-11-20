@@ -120,14 +120,14 @@ body.n3-page { background: #f3f2ee; }
   padding: 22px 12px; border-bottom: 1px solid var(--n3-line);
   transition: background-color 0.35s var(--n3-ease), color 0.35s var(--n3-ease), padding 0.35s var(--n3-ease);
 }
-.n3-row.is-hovered, .n3-row:focus-within { background: var(--n3-ink); color: var(--n3-paper); padding-left: 24px; }
-.n3-row.is-hovered .n3-row__meta, .n3-row:focus-within .n3-row__meta,
-.n3-row.is-hovered .n3-row__num, .n3-row:focus-within .n3-row__num { color: #c9c8c2; }
+.n3-row[data-hovered], .n3-row:focus-within { background: var(--n3-ink); color: var(--n3-paper); padding-left: 24px; }
+.n3-row[data-hovered] .n3-row__meta, .n3-row:focus-within .n3-row__meta,
+.n3-row[data-hovered] .n3-row__num, .n3-row:focus-within .n3-row__num { color: #c9c8c2; }
 .n3-row__num { font-size: 14px; color: var(--n3-gray); font-variant-numeric: tabular-nums; }
 .n3-row__name { font-family: var(--n3-display); font-weight: 500; font-size: clamp(1.6rem, 3.2vw, 2.8rem); letter-spacing: -0.04em; line-height: 1.05; }
 .n3-row__meta { color: var(--n3-gray); font-size: 16px; }
 .n3-row__arrow { font-size: 1.6rem; justify-self: end; transition: transform 0.35s var(--n3-ease); }
-.n3-row.is-hovered .n3-row__arrow { transform: rotate(45deg); }
+.n3-row[data-hovered] .n3-row__arrow { transform: rotate(45deg); }
 
 .n3-preview {
   position: fixed; top: 0; left: 0; z-index: 30; width: 340px; pointer-events: none;
