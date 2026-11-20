@@ -24,8 +24,13 @@ import NotFound from './pages/NotFound';
 import './styles/global.css';
 import './styles/variables.css';
 
-// Redesign preview: its own layout, loaded only when /new-design is visited
-const NewDesign = lazy(() => import('./pages/NewDesign/NewDesign'));
+// Redesign previews: each has its own layout and loads only when visited
+const DESIGN_PREVIEWS = {
+  '/new-design': lazy(() => import('./pages/NewDesign/NewDesign')),
+  '/new-design2': lazy(() => import('./pages/NewDesign2/NewDesign2')),
+  '/new-design3': lazy(() => import('./pages/NewDesign3/NewDesign3')),
+  '/new-design4': lazy(() => import('./pages/NewDesign4/NewDesign4')),
+};
 
 // Styled components for proper stacking
 const AppContainer = styled.div`
@@ -57,10 +62,11 @@ const ModalContainer = styled.div`
 function Layout() {
   const { pathname } = useLocation();
 
-  if (pathname.startsWith('/new-design')) {
+  const Preview = DESIGN_PREVIEWS[pathname.replace(/\/+$/, '')];
+  if (Preview) {
     return (
       <Suspense fallback={null}>
-        <NewDesign />
+        <Preview />
       </Suspense>
     );
   }
